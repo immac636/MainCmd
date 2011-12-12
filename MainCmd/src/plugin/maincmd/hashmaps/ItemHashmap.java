@@ -24,7 +24,9 @@ public class ItemHashmap {
 		items.put("wood", Material.WOOD); 
 		items.put("5", Material.WOOD);
 		items.put("sapling", Material.SAPLING);
+		items.put("6", Material.SAPLING);
 		items.put("bedrock", Material.BEDROCK);
+		items.put("7", Material.BEDROCK);
 		items.put("water", Material.WATER);
 		items.put("swater", Material.STATIONARY_WATER);
 		items.put("lava", Material.LAVA);
