@@ -71,6 +71,7 @@ public class MainCommands implements CommandExecutor {
 						((Player)s).sendMessage(ChatColor.RED + CommandList.setspawnsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.setspawn);
 						((Player)s).sendMessage(ChatColor.RED + CommandList.boomsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.boom);
 						((Player)s).sendMessage(ChatColor.RED + CommandList.pingsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.ping);
+						((Player)s).sendMessage(ChatColor.RED + CommandList.givesyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.give);
 					}
 					else {
 						s.sendMessage("++ Page 2 ++");
@@ -78,6 +79,7 @@ public class MainCommands implements CommandExecutor {
 						s.sendMessage(CommandList.setspawnsyntax + " -- " + CommandList.setspawn);
 						s.sendMessage(CommandList.boomsyntax + " -- " + CommandList.boom);
 						s.sendMessage(CommandList.pingsyntax + " -- " + CommandList.ping);
+						s.sendMessage(CommandList.givesyntax + " -- " + CommandList.give);
 					}
 				}
 			}

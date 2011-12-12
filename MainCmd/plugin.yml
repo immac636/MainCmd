@@ -1,6 +1,6 @@
 name: MainCmd
 main: plugin.maincmd.MainCmd
-version: 0.1(DevTest)
+version: 0.5(Getting along...)
 author: immac636 (Ian)
 commands:
     maincmd:
@@ -34,3 +34,5 @@ commands:
     ping:
         description: Returns "Pong!"
         permission: MainCmd.test.ping
+    give:
+        description: Gives a player an amount of stuff

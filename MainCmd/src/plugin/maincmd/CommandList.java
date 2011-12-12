@@ -25,4 +25,6 @@ public class CommandList {
 	public static String boom = "Boom!";
 	public static String pingsyntax = "/ping";
 	public static String ping = "Returns: Pong!";
+	public static String givesyntax = "/give (Player) (block-or-item id) [amount]";
+	public static String give = "Give a player a stack (or other amount) of an item or a block";
 }
