@@ -1,4 +1,4 @@
-package hashmaps;
+package plugin.maincmd.hashmaps;
 
 import java.util.HashMap;
 

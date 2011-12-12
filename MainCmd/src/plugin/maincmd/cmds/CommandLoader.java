@@ -21,13 +21,10 @@ public class CommandLoader {
 		CommandExecutor Test = new TestCommands();
 		MainCmd.plugin.getCommand("boom").setExecutor(Test);
 		MainCmd.plugin.getCommand("ping").setExecutor(Test);
-<<<<<<< HEAD
 		
 		CommandExecutor Player = new PlayerCommands();
 		MainCmd.plugin.getCommand("give").setExecutor(Player);
 		MainCmd.plugin.getCommand("i").setExecutor(Player);
 		MainCmd.plugin.getCommand("item").setExecutor(Player);
-=======
->>>>>>> branch 'master' of git@github.com:immac636/MainCmd.git
 	}
 }

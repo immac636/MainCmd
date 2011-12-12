@@ -1,6 +1,5 @@
 package plugin.maincmd.cmds;
 
-import hashmaps.ItemHashmap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,6 +13,7 @@ import org.bukkit.inventory.PlayerInventory;
 
 import plugin.maincmd.CommandList;
 import plugin.maincmd.MainCmd;
+import plugin.maincmd.hashmaps.ItemHashmap;
 
 public class PlayerCommands implements CommandExecutor {
 

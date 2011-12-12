@@ -71,8 +71,8 @@ public class MainCommands implements CommandExecutor {
 						((Player)s).sendMessage(ChatColor.RED + CommandList.setspawnsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.setspawn);
 						((Player)s).sendMessage(ChatColor.RED + CommandList.boomsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.boom);
 						((Player)s).sendMessage(ChatColor.RED + CommandList.pingsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.ping);
-<<<<<<< HEAD
 						((Player)s).sendMessage(ChatColor.RED + CommandList.givesyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.give);
+						((Player)s).sendMessage(ChatColor.RED + CommandList.isyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.i);
 					}
 					else {
 						s.sendMessage("++ Page 2 ++");
@@ -81,15 +81,7 @@ public class MainCommands implements CommandExecutor {
 						s.sendMessage(CommandList.boomsyntax + " -- " + CommandList.boom);
 						s.sendMessage(CommandList.pingsyntax + " -- " + CommandList.ping);
 						s.sendMessage(CommandList.givesyntax + " -- " + CommandList.give);
-=======
-					}
-					else {
-						s.sendMessage("++ Page 2 ++");
-						s.sendMessage(CommandList.spawnsyntax + " -- " + CommandList.spawn);
-						s.sendMessage(CommandList.setspawnsyntax + " -- " + CommandList.setspawn);
-						s.sendMessage(CommandList.boomsyntax + " -- " + CommandList.boom);
-						s.sendMessage(CommandList.pingsyntax + " -- " + CommandList.ping);
->>>>>>> branch 'master' of git@github.com:immac636/MainCmd.git
+						s.sendMessage(CommandList.isyntax + " -- " + CommandList.i);
 					}
 				}
 			}
