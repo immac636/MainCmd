@@ -215,7 +215,7 @@ public class TeleportCommands implements CommandExecutor {
 		if (l.equalsIgnoreCase("setspawn")) {
 			if (s instanceof Player) {
 				if (s.hasPermission("MainCmd.teleport.setspawn")) {
-					((Player)s).getWorld().setSpawnLocation((int)((Player)s).getLocation().getX(), (int)((Player)s).getLocation().getY(), (int)((Player)s).getLocation().getZ());
+x					((Player)s).getWorld().setSpawnLocation((int)((Player)s).getLocation().getX(), (int)((Player)s).getLocation().getY(), (int)((Player)s).getLocation().getZ());
 					((Player)s).sendMessage(ChatColor.GREEN + "You set the spawn to your current location!");
 				}
 				else {
