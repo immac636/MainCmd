@@ -24,5 +24,7 @@ public class CommandLoader {
 		
 		CommandExecutor Player = new PlayerCommands();
 		MainCmd.plugin.getCommand("give").setExecutor(Player);
+		MainCmd.plugin.getCommand("i").setExecutor(Player);
+		MainCmd.plugin.getCommand("item").setExecutor(Player);
 	}
 }

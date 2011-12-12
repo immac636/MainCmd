@@ -36,3 +36,7 @@ commands:
         permission: MainCmd.test.ping
     give:
         description: Gives a player an amount of stuff
+    i:
+        description: Gives you stuff
+    item:
+        description: same as i
