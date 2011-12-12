@@ -13,7 +13,12 @@ import plugin.maincmd.MainCmd;
 public class TestCommands implements CommandExecutor {
 
 	@Override
+<<<<<<< HEAD
 	public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
+=======
+	public boolean onCommand(CommandSender s, Command c,
+			String l, String[] args) {
+>>>>>>> branch 'master' of git@github.com:immac636/MainCmd.git
 		if (l.equalsIgnoreCase("boom")) {
 			if (s instanceof Player) {
 				if (args.length < 1) {
