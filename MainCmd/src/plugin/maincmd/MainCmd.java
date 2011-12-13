@@ -24,7 +24,7 @@ public class MainCmd extends JavaPlugin {
 		CommandLoader.LoadCommands();
 		EventLoader.LoadEvents();
 		ConfigLoader.LoadConfigs();
-		ItemHashmap.loadItems();
+		ItemHashmap.loadMats();
 	}	
 	public void onDisable() {
 		log.info("MainCmd (Dev) is shutting down...");

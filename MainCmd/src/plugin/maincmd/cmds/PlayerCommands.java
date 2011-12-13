@@ -41,8 +41,8 @@ public class PlayerCommands implements CommandExecutor {
 							if (args.length < 2) {
 								((Player)s).sendMessage(ChatColor.RED + "Please specify an item or block");
 							}
-							else { // Add invalid id message!!!
-								Material mat = ItemHashmap.items.get(args[1].toLowerCase());
+							else {
+								Material mat = ItemHashmap.mats.get(args[1].toLowerCase());
 								if (mat != null) {
 									if (args.length < 3) {
 										ItemStack item = new ItemStack(mat, mat.getMaxStackSize());
@@ -71,7 +71,7 @@ public class PlayerCommands implements CommandExecutor {
 							s.sendMessage("Please specify an item or block");
 						}
 						else {
-							Material mat = ItemHashmap.items.get(args[1].toLowerCase());
+							Material mat = ItemHashmap.mats.get(args[1].toLowerCase());
 							if (mat != null) {
 								if (args.length < 3) {
 									ItemStack item = new ItemStack(mat, mat.getMaxStackSize());
@@ -112,7 +112,7 @@ public class PlayerCommands implements CommandExecutor {
 					((Player)s).sendMessage(ChatColor.RED + CommandList.isyntax);
 				}
 				else if (s.hasPermission("MainCmd.player.item")) {
-					Material mat = ItemHashmap.items.get(args[0].toLowerCase());
+					Material mat = ItemHashmap.mats.get(args[0].toLowerCase());
 					if (mat != null) {
 						if (args.length < 2) {
 							ItemStack item = new ItemStack(mat, mat.getMaxStackSize());
