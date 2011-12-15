@@ -1,6 +1,5 @@
 name: MainCmd
 main: plugin.maincmd.MainCmd
-<<<<<<< HEAD
 version: 0.5(Getting along...)
 author: immac636 (Ian)
 commands:
@@ -41,39 +40,5 @@ commands:
         description: Gives you stuff
     item:
         description: same as i
-=======
-version: 0.1(DevTest)
-author: immac636 (Ian)
-commands:
-    maincmd:
-        description: Gives a description of this plugin. [help] [#] will show the corresponding help page.
-    tp:
-        description: Teleport a player to another player
-        permission: MainCmd.teleport.tp
-    tphere:
-        description: Teleport a player to you
-        permission: MainCmd.teleport.tphere
-    tpto:
-        description: Teleport to a player
-        permission: MainCmd.teleport.tpto
-    jump:
-        description: Jump to where youre looking
-        permission: MainCmd.teleport.jump
-    send:
-        description: Send a player where youre looking
-        permission: MainCmd.teleport.send
-    spawn:
-        description: Send yourself or another player to the spawn
-        permission: MainCmd.teleport.spawn
-        permission2: MainCmd.teleport.spawn.others
-    setspawn:
-        description: Set the spawn of your current world to your current location. Disregards direction
-        permission: MainCmd.teleport.setspawn
-    boom:
-        description: Boom!
-        permission: MainCmd.test.boom
-        permission2: MainCmd.test.boom.others
-    ping:
-        description: Returns "Pong!"
-        permission: MainCmd.test.ping
->>>>>>> branch 'master' of git@github.com:immac636/MainCmd.git
+    god:
+        description: Toggles god on/off for you or another player

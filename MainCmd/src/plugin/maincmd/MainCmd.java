@@ -2,6 +2,7 @@ package plugin.maincmd;
 
 import plugin.maincmd.hashmaps.ItemHashmap;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
@@ -19,15 +20,20 @@ public class MainCmd extends JavaPlugin {
 	public static String MissingPerms = ChatColor.RED + "You do not have the required permissions to use this command!";
 	public static String PlayerOffline = "That player may be offline. Please check your spelling.";
 	public static String MustBePlayer = "You must be a player to use this command!";
+	public File folder = new File("plugins" + File.separator + "MainCmd");
+	public File userDataFolder = new File(folder, "Players");
+	
 	public void onEnable() {
 		plugin = this;
 		CommandLoader.LoadCommands();
 		EventLoader.LoadEvents();
 		ConfigLoader.LoadConfigs();
 		ItemHashmap.loadMats();
+		log.info("MainCmd Version " + MainCmd.plugin.getDescription().getVersion() + " started up!");
 	}	
 	public void onDisable() {
-		log.info("MainCmd (Dev) is shutting down...");
+		log.info("MainCmd is shutting down...");
+		plugin.saveConfig();
 	}
 	
 }

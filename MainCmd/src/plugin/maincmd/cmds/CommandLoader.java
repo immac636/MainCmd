@@ -26,5 +26,6 @@ public class CommandLoader {
 		MainCmd.plugin.getCommand("give").setExecutor(Player);
 		MainCmd.plugin.getCommand("i").setExecutor(Player);
 		MainCmd.plugin.getCommand("item").setExecutor(Player);
+		MainCmd.plugin.getCommand("god").setExecutor(Player);
 	}
 }

@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -20,7 +21,7 @@ public class PlayerCommands implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
-		
+		FileConfiguration config = MainCmd.plugin.getConfig();
 		// /give
 		// Give an item
 		if (l.equalsIgnoreCase("give")) {
@@ -135,6 +136,40 @@ public class PlayerCommands implements CommandExecutor {
 			}
 			else {
 				s.sendMessage(MainCmd.MustBePlayer);
+			}
+		}
+		
+		// /god
+		// Sets godmode on if player.god = false
+		// sets godmode off if player.god = true
+		if (l.equalsIgnoreCase("god")) {
+			if (args.length < 1) {
+				if ((s instanceof Player)) {
+					((Player)s).sendMessage("/" + l.toString() + " [on/off]");
+				}
+				else {
+					s.sendMessage("/god [on/off]");
+				}
+			}
+			else if ((s instanceof Player)) {
+				if (((Player)s).hasPermission("MainCmd.player.god")) {
+					if (args[0].equalsIgnoreCase("on")) {
+						config.set(((Player)s).getName() + ".god", Boolean.valueOf(true));
+						((Player)s).sendMessage(ChatColor.GREEN + "Godmode enabled!");
+						MainCmd.plugin.saveConfig();
+					}
+					if (args[0].equalsIgnoreCase("off")) {
+						config.set(((Player)s).getName() + ".god", Boolean.valueOf(false));
+						((Player)s).sendMessage(ChatColor.GREEN + "Godmode disabled!");
+						MainCmd.plugin.saveConfig();
+					}
+				}
+				else {
+					((Player)s).sendMessage(MainCmd.MissingPerms);
+				}
+			}
+			else {
+				s.sendMessage(ChatColor.RED + "You can't turn godmode on in-console.");
 			}
 		}
 		return false;
