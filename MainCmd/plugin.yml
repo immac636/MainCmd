@@ -29,16 +29,79 @@ commands:
         permission: MainCmd.teleport.setspawn
     boom:
         description: Boom!
-        permission: MainCmd.test.boom
-        permission2: MainCmd.test.boom.others
+        permission: MainCmd.test.boom.*
     ping:
         description: Returns "Pong!"
         permission: MainCmd.test.ping
     give:
         description: Gives a player an amount of stuff
+        permission: MainCmd.player.give
     i:
         description: Gives you stuff
+        permission: MainCmd.player.item
     item:
         description: same as i
+        permission: MainCmd.player.item
     god:
         description: Toggles god on/off for you or another player
+        permission: MainCmd.player.god
+
+permissions:
+    MainCmd.*:
+        description: Gives access to all MainCmd commands.
+        children:
+            MainCmd.teleport.*: true
+            MainCmd.player.*: true
+            MainCmd.test.*: true
+    MainCmd.teleport.*:
+        description: Gives access to all teleport commands.
+        children:
+            MainCmd.teleport.tp: true
+            MainCmd.teleport.tphere: true
+            MainCmd.teleport.tpto: true
+            MainCmd.teleport.jump: true
+            MainCmd.teleport.send: true
+            MainCmd.teleport.spawn: true
+            MainCmd.teleport.setspawn: true
+    MainCmd.player.*:
+        description: Gives access to all player commands.
+        children:
+            MainCmd.player.give: true
+            MainCmd.player.item: true
+            MainCmd.player.god: true
+    MainCmd.test.*:
+        description: Gives access to all test commands.
+        children:
+            MainCmd.test.boom: true
+            MainCmd.test.boom.others: true
+            MainCmd.test.ping: true
+    MainCmd.test.boom.*:
+        children:
+            MainCmd.test.boom: true
+            MainCmd.test.boom.others: true
+    MainCmd.teleport.tp:
+        default: false
+    MainCmd.teleport.tphere:
+        default: false
+    MainCmd.teleport.tpto:
+        default: false
+    MainCmd.teleport.jump:
+        default: false
+    MainCmd.teleport.send:
+        default: false
+    MainCmd.teleport.spawn:
+        default: false
+    MainCmd.teleport.setspawn:
+        default: false
+    MainCmd.player.give:
+        default: op
+    MainCmd.player.item:
+        default: op
+    MainCmd.player.god:
+        default: op
+    MainCmd.test.boom:
+        default: op
+    MainCmd.test.boom.others:
+        default: op
+    MainCmd.test.ping:
+        default: op
