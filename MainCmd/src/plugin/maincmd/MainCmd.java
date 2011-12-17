@@ -29,6 +29,7 @@ public class MainCmd extends JavaPlugin {
 		EventLoader.LoadEvents();
 		ConfigLoader.LoadConfigs();
 		ItemHashmap.loadMats();
+		Permissions.LoadPerms();
 		log.info("MainCmd Version " + MainCmd.plugin.getDescription().getVersion() + " started up!");
 	}	
 	public void onDisable() {

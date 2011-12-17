@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import plugin.maincmd.CommandList;
 import plugin.maincmd.MainCmd;
+import plugin.maincmd.Permissions;
 
 public class TeleportCommands implements CommandExecutor {
 	
@@ -30,7 +31,7 @@ public class TeleportCommands implements CommandExecutor {
 				}
 			}
 			else if (s instanceof Player) {
-				if (s.hasPermission("MainCmd.teleport.tp")) {
+				if (Permissions.permsCheck(((Player)s), "MainCmd.teleport.tp")) {
 					Player t1 = Bukkit.getServer().getPlayer(args[0]);
 					Player t2 = Bukkit.getServer().getPlayer(args[1]);
 					if ((t1 != null) && (t2 != null)) {
@@ -69,7 +70,7 @@ public class TeleportCommands implements CommandExecutor {
 				if (args.length < 1) {
 					s.sendMessage(ChatColor.RED + "Usage: " + ChatColor.BLUE + CommandList.tpheresyntax);
 				}
-				else if (s.hasPermission("MainCmd.teleport.tphere")) {
+				else if (Permissions.permsCheck(((Player)s), "MainCmd.teleport.tphere")) {
 					Player t = Bukkit.getServer().getPlayer(args[0]);
 					if (t != null) {
 						t.teleport(((Player)s).getLocation());
@@ -96,7 +97,7 @@ public class TeleportCommands implements CommandExecutor {
 				if (args.length < 1) {
 					s.sendMessage(ChatColor.RED + "Usage: " + ChatColor.BLUE + CommandList.tptosyntax);
 				}
-				else if (s.hasPermission("MainCmd.teleport.tphere")) {
+				else if (Permissions.permsCheck(((Player)s), "MainCmd.teleport.tphere")) {
 					Player t = Bukkit.getServer().getPlayer(args[0]);
 					if (t != null) {
 						((Player)s).teleport(t.getLocation());
@@ -120,7 +121,7 @@ public class TeleportCommands implements CommandExecutor {
 		//Jump to where you're looking at
 		if (l.equalsIgnoreCase("jump")) {
 			if (s instanceof Player) {					
-				if (s.hasPermission("MainCmd.teleport.jump")) {
+				if (Permissions.permsCheck(((Player)s), "MainCmd.teleport.jump")) {
 					Location PELoc = ((Player)s).getTargetBlock(null, 0).getRelative(BlockFace.UP, 2).getLocation();	
 					((Player)s).teleport(PELoc);
 					((Player)s).sendMessage(ChatColor.GREEN + "You jumped!");
@@ -141,7 +142,7 @@ public class TeleportCommands implements CommandExecutor {
 				if (args.length < 1) {
 					((Player)s).sendMessage(ChatColor.RED + "Usage: " + ChatColor.BLUE + CommandList.sendsyntax);
 				}
-				else if (s.hasPermission("MainCmd.teleport.send")) {
+				else if (Permissions.permsCheck(((Player)s), "MainCmd.teleport.send")) {
 					Player t = Bukkit.getServer().getPlayer(args[0]);
 					if (t != null){
 						Location PELoc = ((Player)s).getTargetBlock(null, 0).getRelative(BlockFace.UP, 2).getLocation();
@@ -168,7 +169,7 @@ public class TeleportCommands implements CommandExecutor {
 			if (s instanceof Player) {
 				Location spawn = ((Player)s).getWorld().getSpawnLocation();
 				if (args.length < 1) {
-					if (s.hasPermission("MainCmd.teleport.spawn")) {
+					if (Permissions.permsCheck(((Player)s), "MainCmd.teleport.spawn")) {
 						((Player)s).teleport(spawn);
 						((Player)s).sendMessage(ChatColor.GREEN + "You teleported to the spawn!");
 					}
@@ -176,7 +177,7 @@ public class TeleportCommands implements CommandExecutor {
 						((Player)s).sendMessage(MainCmd.MissingPerms);
 					}
 				}
-				else if (s.hasPermission("MainCmd.teleport.spawn.others")) {
+				else if (Permissions.permsCheck(((Player)s), "MainCmd.teleport.spawn.others")) {
 					Player t = Bukkit.getServer().getPlayer(args[0]);
 					if (t != null) {	
 						t.teleport(spawn);
@@ -214,7 +215,7 @@ public class TeleportCommands implements CommandExecutor {
 		//Sets the spawn at your current location.
 		if (l.equalsIgnoreCase("setspawn")) {
 			if (s instanceof Player) {
-				if (s.hasPermission("MainCmd.teleport.setspawn")) {
+				if (Permissions.permsCheck(((Player)s), "MainCmd.teleport.setspawn")) {
 					((Player)s).getWorld().setSpawnLocation((int)((Player)s).getLocation().getX(), (int)((Player)s).getLocation().getY(), (int)((Player)s).getLocation().getZ());
 					((Player)s).sendMessage(ChatColor.GREEN + "You set the spawn to your current location!");
 				}

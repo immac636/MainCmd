@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import plugin.maincmd.MainCmd;
+import plugin.maincmd.Permissions;
 
 public class TestCommands implements CommandExecutor {
 
@@ -17,7 +18,7 @@ public class TestCommands implements CommandExecutor {
 		if (l.equalsIgnoreCase("boom")) {
 			if (s instanceof Player) {
 				if (args.length < 1) {
-					if (s.hasPermission("MainCmd.test.boom")) {
+					if (Permissions.permsCheck(((Player)s), "MainCmd.test.boom")) {
 						Location tblock = ((Player)s).getTargetBlock(null, 0).getLocation();
 						((Player)s).getWorld().createExplosion(tblock, 5);
 						((Player)s).sendMessage(ChatColor.GREEN + "Boom!");
@@ -28,7 +29,7 @@ public class TestCommands implements CommandExecutor {
 				}
 				else {
 					Player t = Bukkit.getServer().getPlayer(args[0]);
-					if (s.hasPermission("MainCmd.test.boom.others")) {
+					if (Permissions.permsCheck(((Player)s), "MainCmd.test.boom.others")) {
 						if (t != null) {
 							t.getWorld().createExplosion(t.getLocation(), 5);
 							((Player)s).sendMessage(ChatColor.GREEN + "Boom!");
@@ -63,7 +64,7 @@ public class TestCommands implements CommandExecutor {
 		
 		if (l.equalsIgnoreCase("ping")) {
 			if (s instanceof Player) {
-				if (s.hasPermission("MainCmd.test.ping")) {
+				if (Permissions.permsCheck(((Player)s), "MainCmd.test.ping")) {
 					((Player)s).sendMessage(ChatColor.RED + "Pong!");
 				}
 				else {

@@ -14,6 +14,7 @@ import org.bukkit.inventory.PlayerInventory;
 
 import plugin.maincmd.CommandList;
 import plugin.maincmd.MainCmd;
+import plugin.maincmd.Permissions;
 import plugin.maincmd.hashmaps.ItemHashmap;
 
 public class PlayerCommands implements CommandExecutor {
@@ -38,7 +39,7 @@ public class PlayerCommands implements CommandExecutor {
 				if (t != null) {
 					PlayerInventory tinv = t.getInventory();
 					if (s instanceof Player) {
-						if(s.hasPermission("MainCmd.player.give")) {
+						if(Permissions.permsCheck(((Player)s), "MainCmd.player.give")) {
 							if (args.length < 2) {
 								((Player)s).sendMessage(ChatColor.RED + "Please specify an item or block");
 							}
@@ -112,7 +113,7 @@ public class PlayerCommands implements CommandExecutor {
 				if (args.length < 1) {
 					((Player)s).sendMessage(ChatColor.RED + CommandList.isyntax);
 				}
-				else if (s.hasPermission("MainCmd.player.item")) {
+				else if (Permissions.permsCheck(((Player)s), "MainCmd.player.item")) {
 					Material mat = ItemHashmap.mats.get(args[0].toLowerCase());
 					if (mat != null) {
 						if (args.length < 2) {
@@ -152,7 +153,7 @@ public class PlayerCommands implements CommandExecutor {
 				}
 			}
 			else if ((s instanceof Player)) {
-				if (((Player)s).hasPermission("MainCmd.player.god")) {
+				if (Permissions.permsCheck(((Player)s), "MainCmd.player.god")) {
 					if (args[0].equalsIgnoreCase("on")) {
 						config.set(((Player)s).getName() + ".god", Boolean.valueOf(true));
 						((Player)s).sendMessage(ChatColor.GREEN + "Godmode enabled!");
