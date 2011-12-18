@@ -7,45 +7,28 @@ commands:
         description: Gives a description of this plugin. [help] [#] will show the corresponding help page.
     tp:
         description: Teleport a player to another player
-        permission: MainCmd.teleport.tp
     tphere:
         description: Teleport a player to you
-        permission: MainCmd.teleport.tphere
     tpto:
         description: Teleport to a player
-        permission: MainCmd.teleport.tpto
     jump:
         description: Jump to where youre looking
-        permission: MainCmd.teleport.jump
     send:
         description: Send a player where youre looking
-        permission: MainCmd.teleport.send
     spawn:
         description: Send yourself or another player to the spawn
-        permission: MainCmd.teleport.spawn
-        permission2: MainCmd.teleport.spawn.others
     setspawn:
         description: Set the spawn of your current world to your current location. Disregards direction
-        permission: MainCmd.teleport.setspawn
     boom:
         description: Boom!
-        permission: MainCmd.test.boom.*
     ping:
         description: Returns "Pong!"
-        permission: MainCmd.test.ping
     give:
         description: Gives a player an amount of stuff
-        permission: MainCmd.player.give
     i:
         description: Gives you stuff
-        permission: MainCmd.player.item
     item:
         description: same as i
-        permission: MainCmd.player.item
-    god:
-        description: Toggles god on/off for you or another player
-        permission: MainCmd.player.god
-
 permissions:
     MainCmd.*:
         description: Gives access to all MainCmd commands.
@@ -68,7 +51,6 @@ permissions:
         children:
             MainCmd.player.give: true
             MainCmd.player.item: true
-            MainCmd.player.god: true
     MainCmd.test.*:
         description: Gives access to all test commands.
         children:
@@ -96,8 +78,6 @@ permissions:
     MainCmd.player.give:
         default: op
     MainCmd.player.item:
-        default: op
-    MainCmd.player.god:
         default: op
     MainCmd.test.boom:
         default: op

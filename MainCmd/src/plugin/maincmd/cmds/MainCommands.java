@@ -1,5 +1,7 @@
 package plugin.maincmd.cmds;
 
+import java.util.logging.Logger;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,10 +12,12 @@ import plugin.maincmd.CommandList;
 import plugin.maincmd.Description;
 
 public class MainCommands implements CommandExecutor {
-
+	Logger log = Logger.getLogger("Minecraft");
 	@Override
 	public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
-		
+		if (s instanceof Player) {
+			log.info("[MainCmd] User " + ((Player)s).getName() + " used (or attempted to use) the command " + l.toString());
+		}
 		// /maincmd
 		//Displays general info (most is (*should be*) shown in the config header) & help
 		if (l.equalsIgnoreCase("maincmd")) {
@@ -22,6 +26,7 @@ public class MainCommands implements CommandExecutor {
 					((Player)s).sendMessage(ChatColor.GOLD + Description.Desc1);
 					((Player)s).sendMessage(ChatColor.GOLD + Description.Desc2);
 					((Player)s).sendMessage(ChatColor.GOLD + Description.Desc3);
+					log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString());
 				}
 				else {
 					s.sendMessage(Description.Desc1);
@@ -52,6 +57,7 @@ public class MainCommands implements CommandExecutor {
 						((Player)s).sendMessage(ChatColor.RED + CommandList.tptosyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.tpto);
 						((Player)s).sendMessage(ChatColor.RED + CommandList.jumpsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.jump);
 						((Player)s).sendMessage(ChatColor.RED + CommandList.sendsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.send);
+						log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " help 1");
 					}
 					else {
 						s.sendMessage("++ Page 1 ++");
@@ -73,6 +79,7 @@ public class MainCommands implements CommandExecutor {
 						((Player)s).sendMessage(ChatColor.RED + CommandList.pingsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.ping);
 						((Player)s).sendMessage(ChatColor.RED + CommandList.givesyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.give);
 						((Player)s).sendMessage(ChatColor.RED + CommandList.isyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.i);
+						log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " help 2");
 					}
 					else {
 						s.sendMessage("++ Page 2 ++");

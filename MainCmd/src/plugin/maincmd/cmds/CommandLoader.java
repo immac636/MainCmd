@@ -4,7 +4,7 @@ import org.bukkit.command.CommandExecutor;
 import plugin.maincmd.MainCmd;
 
 public class CommandLoader {
-	public static void LoadCommands() {
+	public void LoadCommands() {
 		//Main Commands
 		CommandExecutor Help = new MainCommands();
 		MainCmd.plugin.getCommand("maincmd").setExecutor(Help);
@@ -26,6 +26,5 @@ public class CommandLoader {
 		MainCmd.plugin.getCommand("give").setExecutor(Player);
 		MainCmd.plugin.getCommand("i").setExecutor(Player);
 		MainCmd.plugin.getCommand("item").setExecutor(Player);
-		MainCmd.plugin.getCommand("god").setExecutor(Player);
 	}
 }
