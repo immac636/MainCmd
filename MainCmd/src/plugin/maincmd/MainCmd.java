@@ -30,6 +30,7 @@ public class MainCmd extends JavaPlugin
 	ConfigLoader ConfigLoader = new ConfigLoader();
 	public boolean UsePermissions;
 	public PermissionHandler Permissions;
+	public static String newln = System.getProperty("line.separator");
 
 	public void onEnable() {
 		plugin = this;
@@ -64,28 +65,43 @@ public class MainCmd extends JavaPlugin
 			BufferedReader input =  new BufferedReader(new FileReader(file));
 			while(true) {
 				String l_line = input.readLine();
-				if(l_line == null) {
+				if (l_line != null) {
+					s.append(l_line + ", ");
+				}
+				else {
+					s.append("++ End of file ++");
 					break;
 				}
-				s.append(l_line + ", ");
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			return "There was an error performing this command";
+			return "There was an error performing this command (File is missing?)";
 		}
 		return s.toString();
 	}
 	
-	public void fileWriter(String string, File file) {
+	public void fileWrite(String s, File f) {
 		try{
-			BufferedWriter input = new BufferedWriter(new FileWriter(file));
-			input.newLine();
-			input.write(string.toString().toLowerCase());
-			System.out.println("Attempting to save " + string + " to " + file); // Debug
-		} catch(Exception e) {
-			e.printStackTrace();
+			// Create file 
+			FileWriter fstream = new FileWriter(f, true);
+			BufferedWriter out = new BufferedWriter(fstream);
+			if (f.length() > 0) {
+				out.newLine();
+				out.write(s);
+				out.flush();
+			}
+			else {
+				out.write(s);
+				out.flush();
+			}
+			System.out.println("Writing to " + f.toString());
+			//Close the output stream
+			out.close();
+		} catch (Exception e){ //Catch exception if any
+			System.err.println("Error: " + e.getMessage());
 		}
 	}
+	
 	public boolean permsCheck(Player p, String string) {
 		if (UsePermissions) {
 			return Permissions.has(p, string);

@@ -328,7 +328,7 @@ public class TeleportCommands
 						((Player)s).sendMessage(ChatColor.GREEN + "Warp " + name + " successfully set to your location!");
 						log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " " + name);
 						File warps = new File(MainCmd.plugin.getDataFolder(), "warps.yml");
-						MainCmd.plugin.fileWriter("TEST", warps);
+						MainCmd.plugin.fileWrite(name, warps);
 						MainCmd.plugin.saveConfig();
 					}
 					else {
