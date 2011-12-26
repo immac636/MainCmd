@@ -1,7 +1,7 @@
 name: MainCmd
 main: plugin.maincmd.MainCmd
-version: 0.5(Getting along...)
-author: immac636 (Ian)
+version: 1.1 (Release!)
+author: immac636
 commands:
     maincmd:
         description: Gives a description of this plugin. [help] [#] will show the corresponding help page.
@@ -29,6 +29,30 @@ commands:
         description: Gives you stuff
     item:
         description: same as i
+    home:
+        description: Teleports you to your home, if its set
+    sethome:
+        description: Sets your home to your current location.
+    warp:
+        description: Warp to the specified warp
+    setwarp:
+        description: Set a warp at your current location.
+    rmwarp:
+        description: Remove a warp
+    removewarp:
+        description: Same as rmwarp
+    god:
+        description: Toggles god on/off
+    creative:
+        description: Turns on creative
+    survival:
+        description: turns on survival
+    afk:
+        description: toggles afk
+    heal:
+        description: heals yourself
+    feed:
+        description: feeds yourself
 permissions:
     MainCmd.*:
         description: Gives access to all MainCmd commands.
@@ -36,6 +60,8 @@ permissions:
             MainCmd.teleport.*: true
             MainCmd.player.*: true
             MainCmd.test.*: true
+            MainCmd.main.reload: true
+            MainCmd.chatcolor: true
     MainCmd.teleport.*:
         description: Gives access to all teleport commands.
         children:
@@ -46,11 +72,25 @@ permissions:
             MainCmd.teleport.send: true
             MainCmd.teleport.spawn: true
             MainCmd.teleport.setspawn: true
+            MainCmd.teleport.home: true
+            MainCmd.teleport.sethome: true
+            MainCmd.teleport.warp: true
+            MainCmd.teleport.setwarp: true
+            MainCmd.teleport.rmwarp: true
     MainCmd.player.*:
         description: Gives access to all player commands.
         children:
             MainCmd.player.give: true
             MainCmd.player.item: true
+            MainCmd.player.god: true
+            MainCmd.player.god.others: true
+            MainCmd.player.creative: true
+            MainCmd.player.creative.others: true
+            MainCmd.player.survival: true
+            MainCmd.player.survival.others: true
+            MainCmd.player.afk: true
+            MainCmd.player.heal: true
+            MainCmd.player.feed: true
     MainCmd.test.*:
         description: Gives access to all test commands.
         children:
@@ -75,9 +115,37 @@ permissions:
         default: false
     MainCmd.teleport.setspawn:
         default: false
+    MainCmd.teleport.home:
+        default: true
+    MainCmd.teleport.sethome:
+        default: true
+    MainCmd.teleport.warp:
+        default: false
+    MainCmd.teleport.setwarp:
+        default: false
+    MainCmd.teleport.rmwarp:
+        default: op
     MainCmd.player.give:
         default: op
     MainCmd.player.item:
+        default: op
+    MainCmd.player.god:
+        default: op
+    MainCmd.player.god.others:
+        default: op
+    MainCmd.player.creative:
+        default: op
+    MainCmd.player.creative.others:
+        default: op
+    MainCmd.player.survival:
+        default: op
+    MainCmd.player.survival.others:
+        default: op
+    MainCmd.player.afk:
+        default: true
+    MainCmd.player.heal:
+        default: op
+    MainCmd.player.feed:
         default: op
     MainCmd.test.boom:
         default: op
@@ -85,3 +153,7 @@ permissions:
         default: op
     MainCmd.test.ping:
         default: op
+    MainCmd.main.reload:
+        default: op
+    MainCmd.chatcolor:
+        default: false

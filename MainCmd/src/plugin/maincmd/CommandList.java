@@ -1,19 +1,17 @@
 package plugin.maincmd;
 
-public class CommandList {
-	// Pain...
-	// I will organize these when I'm done adding the basic commands.
-	// Until then, they will be in the order that I implemented them. (minus /main)
+public class CommandList
+{
 	public static String syntax = "/<command> (required) [Optional]";
 	public static String mainsyntax = "/main [help(#)]";
 	public static String main = "Gives a description of MainCmd. [help] [#] will show the corresponding help page.";
 	public static String tpsyntax = "/tp (player) (player)";
 	public static String tp = "Teleport a player to another player";
-	public static String tpheresyntax = "/tphere (player)";
+	public static String tpheresyntax = "/tphere (player) - Alias: /tph";
 	public static String tphere = "Teleport a player to you";
 	public static String tptosyntax = "/tpto (player)";
 	public static String tpto = "Teleport to a player";
-	public static String jumpsyntax = "/jump";
+	public static String jumpsyntax = "/jump - Alias: /j";
 	public static String jump = "Jump to where you're looking";
 	public static String sendsyntax = "/send (Player)";
 	public static String send = "Send a player to where you're looking";
@@ -26,7 +24,29 @@ public class CommandList {
 	public static String pingsyntax = "/ping";
 	public static String ping = "Returns: Pong!";
 	public static String givesyntax = "/give (Player) (block-or-item id) [amount]";
-	public static String give = "Give a player a stack (or other amount) of an item or  block";
-	public static String isyntax = "/i (block-or-item id) [amount]";
+	public static String give = "Give a player a stack (or other amount) of an item or	block";
+	public static String isyntax = "/i (block-or-item id) [amount] - Alias: /item";
 	public static String i = "Give yourself a stack (or other amount) of an item or block";
+	public static String home = "Teleport to your home (If it's set)";
+	public static String homesyntax = "/home - Alias: /h";
+	public static String sethome = "Set your home to your current location.";
+	public static String sethomesyntax = "/sethome";
+	public static String warp = "Go to the specified warp";
+	public static String warpsyntax = "/warp (Warp name)";
+	public static String setwarp = "Set a warp at your current position";
+	public static String setwarpsyntax = "/setwarp (Warp name)";
+	public static String rmwarp = "Remove a warp";
+	public static String rmwarpsyntax = "/rmwarp (Warp name) - Alias: /removewarp";
+	public static String god = "Toggle god for yourself or others";
+	public static String godsyntax = "/god [Player]";
+	public static String creativesyntax = "/creative [Player]";
+	public static String creative = "Turns on creative mode for yourself or another person";
+	public static String survivalsyntax = "/survival [Player]";
+	public static String survival = "Turns on survival mode for yourself or another person";
+	public static String afk = "Toggle afk mode (Not done)";
+	public static String afksyntax = "/afk";
+	public static String heal = "Heal yourself (Not done)";
+	public static String healsyntax = "/heal";
+	public static String feed = "Feed yourself (Not done)";
+	public static String feedsyntax = "/feed";
 }

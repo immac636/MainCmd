@@ -2,12 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="C:/Users/Ian/Desktop/Plugins/bukkit-1.0.1-R2-SNAPSHOT.jar">
+	<classpathentry kind="lib" path="C:/Users/Ian Mackay/Desktop/Plugins/bukkit-1.0.1-R2-SNAPSHOT.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://jd.bukkit.org/apidocs/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Ian/Desktop/Plugins/PermissionsEx.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ian/Desktop/Plugins/Permissions.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ian Mackay/Desktop/Plugins/PermissionsEx.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ian Mackay/Desktop/Plugins/Permissions.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
