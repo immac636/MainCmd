@@ -53,6 +53,8 @@ commands:
         description: heals yourself
     feed:
         description: feeds yourself
+    kick:
+        description: kick a player
 permissions:
     MainCmd.*:
         description: Gives access to all MainCmd commands.
@@ -62,6 +64,9 @@ permissions:
             MainCmd.test.*: true
             MainCmd.main.reload: true
             MainCmd.chatcolor: true
+    MainCmd.admin.*:
+            MainCmd.admin.kick: true
+            MainCmd.admin.kick.all: true
     MainCmd.teleport.*:
         description: Gives access to all teleport commands.
         children:
@@ -101,6 +106,10 @@ permissions:
         children:
             MainCmd.test.boom: true
             MainCmd.test.boom.others: true
+    MainCmd.admin.kick:
+        default: op
+    MainCmd.admin.kick.all:
+        default: op
     MainCmd.teleport.tp:
         default: false
     MainCmd.teleport.tphere:

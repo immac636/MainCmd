@@ -234,7 +234,6 @@ public class PlayerCommands
 		else
 			((Player)s).sendMessage(ChatColor.RED + config.getString("Messages.OfflinePlayer"));
 	}
-
 	private void creative(CommandSender s, Command c, String l, String[] args) {
 		if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.player.creative")) {
 			((Player)s).setGameMode(GameMode.CREATIVE);
@@ -320,7 +319,6 @@ public class PlayerCommands
 		} else s.sendMessage("You can't use /afk from console!"); */
 		((Player)s).sendMessage(ChatColor.DARK_RED + "AFK Is not yet implemented, nag immac636 to put it in :(");
 	}
-
 	private void heal(CommandSender s, Command c, String l, String[] args) {
 		if ((s instanceof Player)) {
 			if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.player.heal")) {
@@ -332,7 +330,6 @@ public class PlayerCommands
 			}
 		} else s.sendMessage("You can't use /heal from console!"); 
 	}
-
 	private void feed(CommandSender s, Command c, String l, String[] args) {
 		if ((s instanceof Player)) {
 			if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.player.feed")) {
@@ -345,8 +342,7 @@ public class PlayerCommands
 		} else s.sendMessage("You can't use /feed from console!"); 
 	}
 
-	public boolean onCommand(CommandSender s, Command c, String l, String[] args)
-	{
+	public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
 		if ((s instanceof Player)) {
 			log.info("[MainCmd] User " + ((Player)s).getName() + " used (or attempted to use) the command " + l.toString());
 		}

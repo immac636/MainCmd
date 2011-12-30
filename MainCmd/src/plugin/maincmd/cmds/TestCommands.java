@@ -79,7 +79,11 @@ public class TestCommands
 	}
 
 	private void say(CommandSender s, Command c, String l, String[] args) {
-		
+		if (s instanceof Player) {
+			if (MainCmd.plugin.permsCheck(((Player)s), "MainCmd.test.say")) {
+				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), l);
+			}
+		}
 	}
 	public boolean onCommand(CommandSender s, Command c, String l, String[] args)
 	{
@@ -91,6 +95,9 @@ public class TestCommands
 		}
 		if (l.equalsIgnoreCase("ping")) {
 			ping(s, c, l, args);
+		}
+		if (l.equalsIgnoreCase("say")) {
+			say(s, c, l, args);
 		}
 		return false;
 	}

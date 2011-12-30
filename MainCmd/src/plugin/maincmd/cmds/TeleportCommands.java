@@ -1,8 +1,8 @@
 package plugin.maincmd.cmds;
 
-import java.io.File;
-import java.util.List;
 import java.util.logging.Logger;
+
+import net.minecraft.server.Chunk;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -35,11 +35,13 @@ public class TeleportCommands
 				Player t1 = Bukkit.getServer().getPlayer(args[0]);
 				Player t2 = Bukkit.getServer().getPlayer(args[1]);
 				if ((t1 != null) && (t2 != null)) {
+					MainCmd.sendChunk((Chunk) t2.getLocation().getChunk(), t1);
 					t1.teleport(t2.getLocation());
 					((Player)s).sendMessage(ChatColor.GREEN + "You sent " + t1.getName() + " to " + t2.getName() + ".");
 					t1.sendMessage(ChatColor.AQUA + ((Player)s).getName() + " sent you to " + t2.getName() + "!");
 					t2.sendMessage(ChatColor.AQUA + ((Player)s).getName() + " sent " + t1.getName() + " to you!");
 					log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " " + t1.getName() + " " + t2.getName());
+					
 				}
 				else {
 					((Player)s).sendMessage(ChatColor.RED + "One or both of those players may be offline, please check your spelling.");
@@ -53,6 +55,7 @@ public class TeleportCommands
 			Player t1 = Bukkit.getServer().getPlayer(args[0]);
 			Player t2 = Bukkit.getServer().getPlayer(args[1]);
 			if ((t1 != null) && (t2 != null)) {
+				MainCmd.sendChunk((Chunk) t2.getLocation().getChunk(), t1);
 				t1.teleport(t2.getLocation());
 				s.sendMessage("You sent " + t1.getName() + " to " + t2.getName() + ".");
 				t1.sendMessage(ChatColor.AQUA + "You were sent to " + t2.getName() + "!");
@@ -72,6 +75,7 @@ public class TeleportCommands
 			else if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.teleport.tphere")) {
 				Player t = Bukkit.getServer().getPlayer(args[0]);
 				if (t != null) {
+					MainCmd.sendChunk((Chunk) ((Player)s).getLocation().getChunk(), t);
 					t.teleport(((Player)s).getLocation());
 					((Player)s).sendMessage(ChatColor.GREEN + "You brought " + t.getName() + " to you!");
 					t.sendMessage(ChatColor.AQUA + ((Player)s).getName() + " teleported you!");
@@ -97,6 +101,7 @@ public class TeleportCommands
 			else if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.teleport.tphere")) {
 				Player t = Bukkit.getServer().getPlayer(args[0]);
 				if (t != null) {
+					MainCmd.sendChunk((Chunk) t.getLocation().getChunk(), ((Player)s));
 					((Player)s).teleport(t.getLocation());
 					((Player)s).sendMessage(ChatColor.GREEN + "You teleported to " + t.getName() + "!");
 					t.sendMessage(ChatColor.AQUA + ((Player)s).getName() + " teleported to you!");
@@ -118,6 +123,7 @@ public class TeleportCommands
 		if ((s instanceof Player)) {
 			if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.teleport.jump")) {
 				Location PELoc = ((Player)s).getTargetBlock(null, 0).getRelative(BlockFace.UP, 2).getLocation();
+				MainCmd.sendChunk((Chunk) PELoc.getChunk(), ((Player)s));
 				((Player)s).teleport(PELoc);
 				((Player)s).sendMessage(ChatColor.GREEN + "You jumped!");
 				log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString());
@@ -139,6 +145,7 @@ public class TeleportCommands
 				Player t = Bukkit.getServer().getPlayer(args[0]);
 				if (t != null) {
 					Location PELoc = ((Player)s).getTargetBlock(null, 0).getRelative(BlockFace.UP, 2).getLocation();
+					MainCmd.sendChunk((Chunk) PELoc.getChunk(), t);
 					t.teleport(PELoc);
 					((Player)s).sendMessage(ChatColor.GREEN + "You sent " + t.getName() + " to where you were looking!");
 					t.sendMessage(ChatColor.AQUA + ((Player)s).getName() + " sent you to where he/she was looking.");
@@ -161,6 +168,7 @@ public class TeleportCommands
 			Location spawn = ((Player)s).getWorld().getSpawnLocation();
 			if (args.length < 1) {
 				if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.teleport.spawn")) {
+					MainCmd.sendChunk((Chunk) spawn.getChunk(), ((Player)s));
 					((Player)s).teleport(spawn);
 					((Player)s).sendMessage(ChatColor.GREEN + "You teleported to the spawn!");
 					log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString());
@@ -172,6 +180,7 @@ public class TeleportCommands
 			else if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.teleport.spawn.others")) {
 				Player t = Bukkit.getServer().getPlayer(args[0]);
 				if (t != null) {
+					MainCmd.sendChunk((Chunk) spawn.getChunk(), t);
 					t.teleport(spawn);
 					((Player)s).sendMessage(ChatColor.GREEN + "You sent " + t.getName() + " to the spawn!");
 					t.sendMessage(ChatColor.AQUA + ((Player)s).getName() + " sent you to the spawn.");
@@ -193,6 +202,7 @@ public class TeleportCommands
 			Player t = Bukkit.getServer().getPlayer(args[0]);
 			if (t != null) {
 				Location spawn = t.getWorld().getSpawnLocation();
+				MainCmd.sendChunk((Chunk) spawn.getChunk(), t);
 				t.teleport(spawn);
 				s.sendMessage("You sent " + t.getName() + "to the spawn!");
 				t.sendMessage(ChatColor.AQUA + "You were sent to the spawn.");
@@ -230,7 +240,9 @@ public class TeleportCommands
 					double y = config.getDouble("Players." + ((Player)s).getName() + ".home.y");
 					double z = config.getDouble("Players." + ((Player)s).getName() + ".home.z");
 					String world = (String)config.get("Players." + ((Player)s).getName() + ".home.world");
-					((Player)s).teleport(new Location(Bukkit.getServer().getWorld(world), x, y, z));
+					Location home = new Location(Bukkit.getServer().getWorld(world), x, y, z);
+					MainCmd.sendChunk((Chunk) home.getChunk(), ((Player)s));
+					((Player)s).teleport(home);
 					((Player)s).sendMessage(ChatColor.GREEN + "You teleported to your home!");
 					log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString());
 				}
@@ -250,7 +262,6 @@ public class TeleportCommands
 				double y = ((Player)s).getLocation().getY();
 				double z = ((Player)s).getLocation().getZ();
 				String world = ((Player)s).getWorld().getName();
-
 				config.set("Players." + ((Player)s).getName() + ".home.x", Double.valueOf(x));
 				config.set("Players." + ((Player)s).getName() + ".home.y", Double.valueOf(y));
 				config.set("Players." + ((Player)s).getName() + ".home.z", Double.valueOf(z));
@@ -267,14 +278,15 @@ public class TeleportCommands
 			s.sendMessage(MainCmd.MustBePlayer);
 	}
 
-	private void warp(CommandSender s, Command c, String l, String[] args) {
+	private void warp(CommandSender s, Command c, String l, String[] args) { // TODO Add /warp others and console warp others
 		if ((s instanceof Player)) {
 			if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.teleport.warp")) {
 				if (args.length < 1) {
 					//((Player)s).sendMessage(ChatColor.RED + "Usage: " + ChatColor.BLUE + CommandList.warpsyntax);
-					File warps = new File(MainCmd.plugin.getDataFolder(), "warps.yml");
-					String msg = MainCmd.plugin.getFileContents(warps);
-					((Player)s).sendMessage(ChatColor.GOLD + "Warps: " + msg);
+					//File warps = new File(MainCmd.plugin.getDataFolder(), "warps.yml");
+					//String msg = MainCmd.plugin.getFileContents(warps);
+					String msg = MainCmd.plugin.configList(config, "Warps.");
+					((Player)s).sendMessage(ChatColor.GOLD + "Warps: " + ChatColor.DARK_GREEN + msg);
 				}
 				else {
 					String name = args[0].toLowerCase();
@@ -285,7 +297,9 @@ public class TeleportCommands
 							double y = config.getDouble("Warps." + name + ".y");
 							double z = config.getDouble("Warps." + name + ".z");
 							String world = (String)config.get("Warps." + name + ".world");
-							((Player)s).teleport(new Location(Bukkit.getServer().getWorld(world), x, y, z));
+							Location warp = new Location(Bukkit.getServer().getWorld(world), x, y, z);
+							MainCmd.sendChunk((Chunk) warp.getChunk(), ((Player)s));
+							((Player)s).teleport(warp);
 							((Player)s).sendMessage(ChatColor.GREEN + "You teleported to the warp " + name + "!");
 							log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " " + name);
 						}
@@ -327,8 +341,8 @@ public class TeleportCommands
 						config.set("Warps." + name + ".world", world);
 						((Player)s).sendMessage(ChatColor.GREEN + "Warp " + name + " successfully set to your location!");
 						log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " " + name);
-						File warps = new File(MainCmd.plugin.getDataFolder(), "warps.yml");
-						MainCmd.plugin.fileWrite(name, warps);
+						//File warps = new File(MainCmd.plugin.getDataFolder(), "warps.yml");
+						//MainCmd.plugin.fileWrite(name, warps);
 						MainCmd.plugin.saveConfig();
 					}
 					else {

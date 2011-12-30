@@ -48,10 +48,6 @@ public class ConfigLoader {
 			config.createSection("Warps");
 			MainCmd.plugin.saveConfig();
 		}
-		if (config.get("WarpsList") == null) {
-			config.createSection("WarpsList");
-			MainCmd.plugin.saveConfig();
-		}
 		if (config.get("MainCmd.spawnathome") == null) {
 			config.set("MainCmd.spawnathome", true);
 			MainCmd.plugin.saveConfig();

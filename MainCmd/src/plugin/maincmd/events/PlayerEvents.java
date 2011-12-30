@@ -3,16 +3,15 @@ package plugin.maincmd.events;
 import java.io.File;
 import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerListener;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import plugin.maincmd.MainCmd;
 
 public class PlayerEvents extends PlayerListener {
@@ -29,8 +28,7 @@ public class PlayerEvents extends PlayerListener {
 			String join = MainCmd.plugin.replaceColors(config.getString("Messages.joinmessage"));
 			p.sendMessage(welcome);
 			e.setJoinMessage(join.replaceAll("<pname>", pname));
-		}
-		else {
+		} else {
 			String welcome = MainCmd.plugin.replaceColors(config.getString("Messages.firstwelcomemessage"));
 			String join = MainCmd.plugin.replaceColors(config.getString("Messages.firstjoinmessage"));
 			p.sendMessage(welcome);
@@ -39,7 +37,14 @@ public class PlayerEvents extends PlayerListener {
 			MainCmd.plugin.saveConfig();
 		}
 	}
-
+	public void onPlayerLogin(PlayerLoginEvent e) { 
+		/*if (e.getPlayer().getName().equalsIgnoreCase("immac636")) {// BLING BLING BLING
+			e.getPlayer().setDisplayName(ChatColor.DARK_RED + "[Dev]" + ChatColor.DARK_PURPLE + "immac636" + ChatColor.GOLD + "[MainCmd]" + ChatColor.WHITE);
+		}*/
+		if (e.getPlayer().isBanned()) {
+			((Player)e).kickPlayer(config.getString("Players." + ((Player)e).getName() + ".banreason"));
+		}
+	}
 	public void onPlayerChat(PlayerChatEvent e) {
 		Player p = e.getPlayer();
 		if (MainCmd.plugin.permsCheck(p, "MainCmd.chatcolor")) {
@@ -59,21 +64,5 @@ public class PlayerEvents extends PlayerListener {
 		String quit = MainCmd.plugin.replaceColors(config.getString("Messages.quitmessage"));
 		e.setQuitMessage(quit.replaceAll("<pname>", pname));
 		MainCmd.plugin.saveConfig();
-	}
-	public void onPlayerRespawn(PlayerRespawnEvent e) {
-		if (config.getBoolean("MainCmd.spawnathome", true)) {
-			if ((config.contains("Players." + ((Player)e).getName() + ".home.x")) && (config.contains("Players." + ((Player)e).getName() + ".home.y")) && 
-					(config.contains("Players." + ((Player)e).getName() + ".home.z")) && (config.contains("Players." + ((Player)e).getName() + ".home.world"))) {
-				double x = config.getDouble("Players." + ((Player)e).getName() + ".home.x");
-				double y = config.getDouble("Players." + ((Player)e).getName() + ".home.y");
-				double z = config.getDouble("Players." + ((Player)e).getName() + ".home.z");
-				String world = (String)config.get("Players." + ((Player)e).getName() + ".home.world");
-				Location home = new Location(Bukkit.getServer().getWorld(world), x, y, z); 
-				e.setRespawnLocation(home);
-			}
-			else {
-				((Player)e).sendMessage(ChatColor.GOLD + "Home not set! Spawned at the default spawn!");
-			}
-		}
 	}
 }
