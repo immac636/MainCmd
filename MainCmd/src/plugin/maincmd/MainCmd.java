@@ -16,6 +16,7 @@ import net.minecraft.server.Packet51MapChunk;
 import net.minecraft.server.TileEntity;
 
 import org.bukkit.configuration.Configuration;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -158,19 +159,19 @@ public class MainCmd extends JavaPlugin
 	public String replaceColors(String String) {
 		return String.replaceAll("(?i)&([a-f0-9])", "§$1");
 	}
-	public static void sendChunk(net.minecraft.server.Chunk c, Player t) {
-		EntityPlayer player = (EntityPlayer) t;
+	public static void sendChunk(net.minecraft.server.Chunk c, CraftPlayer player) {
+		EntityPlayer ePlayer = ((CraftPlayer) player).getHandle();
 		byte[] data = new byte[81920];
 		System.arraycopy(c.b, 0, data, 0, 32768);
 		System.arraycopy(c.g.a, 0, data, 32768, 16384);
 		System.arraycopy(c.i.a, 0, data, 49152, 16384);
 		System.arraycopy(c.h.a, 0, data, 65536, 16384);
 
-		player.netServerHandler.sendPacket(new Packet51MapChunk(c.x << 4, 0, c.z << 4, 16, 128, 16, data));
+		ePlayer.netServerHandler.sendPacket(new Packet51MapChunk(c.x << 4, 0, c.z << 4, 16, 128, 16, data));
 		Packet p;
 		for (Object o : c.tileEntities.values()) {
 			p = ((TileEntity) o).k();
-			if (p != null) player.netServerHandler.sendPacket(p);
+			if (p != null) ePlayer.netServerHandler.sendPacket(p);
 		}
 	}
 }
