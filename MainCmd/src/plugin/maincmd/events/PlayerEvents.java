@@ -3,14 +3,12 @@ package plugin.maincmd.events;
 import java.io.File;
 import java.util.logging.Logger;
 
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import plugin.maincmd.MainCmd;
 
@@ -37,10 +35,7 @@ public class PlayerEvents extends PlayerListener {
 			MainCmd.plugin.saveConfig();
 		}
 	}
-	public void onPlayerLogin(PlayerLoginEvent e) { 
-		/*if (e.getPlayer().getName().equalsIgnoreCase("immac636")) {// BLING BLING BLING
-			e.getPlayer().setDisplayName(ChatColor.DARK_RED + "[Dev]" + ChatColor.DARK_PURPLE + "immac636" + ChatColor.GOLD + "[MainCmd]" + ChatColor.WHITE);
-		}*/
+	public void onPlayerLogin(PlayerLoginEvent e) {
 		if (e.getPlayer().isBanned()) {
 			((Player)e).kickPlayer(config.getString("Players." + ((Player)e).getName() + ".banreason"));
 		}

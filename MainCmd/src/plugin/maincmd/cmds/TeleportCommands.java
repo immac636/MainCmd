@@ -33,7 +33,9 @@ public class TeleportCommands
 			if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.teleport.tp")) {
 				Player t1 = Bukkit.getServer().getPlayer(args[0]);
 				Player t2 = Bukkit.getServer().getPlayer(args[1]);
+				net.minecraft.server.Chunk chunk = ((org.bukkit.craftbukkit.CraftChunk) t2.getLocation().getChunk()).getHandle();
 				if ((t1 != null) && (t2 != null)) {
+					MainCmd.sendChunk(chunk, t1);
 					t1.teleport(t2.getLocation());
 					((Player)s).sendMessage(ChatColor.GREEN + "You sent " + t1.getName() + " to " + t2.getName() + ".");
 					t1.sendMessage(ChatColor.AQUA + ((Player)s).getName() + " sent you to " + t2.getName() + "!");
@@ -52,7 +54,9 @@ public class TeleportCommands
 		else {
 			Player t1 = Bukkit.getServer().getPlayer(args[0]);
 			Player t2 = Bukkit.getServer().getPlayer(args[1]);
+			net.minecraft.server.Chunk chunk = ((org.bukkit.craftbukkit.CraftChunk) t2.getLocation().getChunk()).getHandle();
 			if ((t1 != null) && (t2 != null)) {
+				MainCmd.sendChunk(chunk, t1);
 				t1.teleport(t2.getLocation());
 				s.sendMessage("You sent " + t1.getName() + " to " + t2.getName() + ".");
 				t1.sendMessage(ChatColor.AQUA + "You were sent to " + t2.getName() + "!");
@@ -71,7 +75,9 @@ public class TeleportCommands
 			}
 			else if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.teleport.tphere")) {
 				Player t = Bukkit.getServer().getPlayer(args[0]);
+				net.minecraft.server.Chunk chunk = ((org.bukkit.craftbukkit.CraftChunk) ((Player)s).getLocation().getChunk()).getHandle();
 				if (t != null) {
+					MainCmd.sendChunk(chunk, t);
 					t.teleport(((Player)s).getLocation());
 					((Player)s).sendMessage(ChatColor.GREEN + "You brought " + t.getName() + " to you!");
 					t.sendMessage(ChatColor.AQUA + ((Player)s).getName() + " teleported you!");
@@ -97,6 +103,8 @@ public class TeleportCommands
 			else if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.teleport.tphere")) {
 				Player t = Bukkit.getServer().getPlayer(args[0]);
 				if (t != null) {
+					net.minecraft.server.Chunk chunk = ((org.bukkit.craftbukkit.CraftChunk) t.getLocation().getChunk()).getHandle();
+					MainCmd.sendChunk(chunk, ((Player)s));
 					((Player)s).teleport(t.getLocation());
 					((Player)s).sendMessage(ChatColor.GREEN + "You teleported to " + t.getName() + "!");
 					t.sendMessage(ChatColor.AQUA + ((Player)s).getName() + " teleported to you!");
@@ -118,6 +126,8 @@ public class TeleportCommands
 		if ((s instanceof Player)) {
 			if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.teleport.jump")) {
 				Location PELoc = ((Player)s).getTargetBlock(null, 0).getRelative(BlockFace.UP, 2).getLocation();
+				net.minecraft.server.Chunk chunk = ((org.bukkit.craftbukkit.CraftChunk) PELoc.getChunk()).getHandle();
+				MainCmd.sendChunk(chunk, ((Player)s));
 				((Player)s).teleport(PELoc);
 				((Player)s).sendMessage(ChatColor.GREEN + "You jumped!");
 				log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString());
@@ -139,6 +149,8 @@ public class TeleportCommands
 				Player t = Bukkit.getServer().getPlayer(args[0]);
 				if (t != null) {
 					Location PELoc = ((Player)s).getTargetBlock(null, 0).getRelative(BlockFace.UP, 2).getLocation();
+					net.minecraft.server.Chunk chunk = ((org.bukkit.craftbukkit.CraftChunk) PELoc.getChunk()).getHandle();
+					MainCmd.sendChunk(chunk, t);
 					t.teleport(PELoc);
 					((Player)s).sendMessage(ChatColor.GREEN + "You sent " + t.getName() + " to where you were looking!");
 					t.sendMessage(ChatColor.AQUA + ((Player)s).getName() + " sent you to where he/she was looking.");
@@ -161,6 +173,8 @@ public class TeleportCommands
 			Location spawn = ((Player)s).getWorld().getSpawnLocation();
 			if (args.length < 1) {
 				if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.teleport.spawn")) {
+					net.minecraft.server.Chunk chunk = ((org.bukkit.craftbukkit.CraftChunk) spawn.getChunk()).getHandle();
+					MainCmd.sendChunk(chunk, ((Player)s));
 					((Player)s).teleport(spawn);
 					((Player)s).sendMessage(ChatColor.GREEN + "You teleported to the spawn!");
 					log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString());
@@ -172,6 +186,8 @@ public class TeleportCommands
 			else if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.teleport.spawn.others")) {
 				Player t = Bukkit.getServer().getPlayer(args[0]);
 				if (t != null) {
+					net.minecraft.server.Chunk chunk = ((org.bukkit.craftbukkit.CraftChunk) spawn.getChunk()).getHandle();
+					MainCmd.sendChunk(chunk, t);
 					t.teleport(spawn);
 					((Player)s).sendMessage(ChatColor.GREEN + "You sent " + t.getName() + " to the spawn!");
 					t.sendMessage(ChatColor.AQUA + ((Player)s).getName() + " sent you to the spawn.");
@@ -193,6 +209,8 @@ public class TeleportCommands
 			Player t = Bukkit.getServer().getPlayer(args[0]);
 			if (t != null) {
 				Location spawn = t.getWorld().getSpawnLocation();
+				net.minecraft.server.Chunk chunk = ((org.bukkit.craftbukkit.CraftChunk) spawn.getChunk()).getHandle();
+				MainCmd.sendChunk(chunk, t);
 				t.teleport(spawn);
 				s.sendMessage("You sent " + t.getName() + "to the spawn!");
 				t.sendMessage(ChatColor.AQUA + "You were sent to the spawn.");
@@ -231,6 +249,8 @@ public class TeleportCommands
 					double z = config.getDouble("Players." + ((Player)s).getName() + ".home.z");
 					String world = (String)config.get("Players." + ((Player)s).getName() + ".home.world");
 					Location home = new Location(Bukkit.getServer().getWorld(world), x, y, z);
+					net.minecraft.server.Chunk chunk = ((org.bukkit.craftbukkit.CraftChunk) home.getChunk()).getHandle();
+					MainCmd.sendChunk(chunk, ((Player)s));
 					((Player)s).teleport(home);
 					((Player)s).sendMessage(ChatColor.GREEN + "You teleported to your home!");
 					log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString());
@@ -271,9 +291,6 @@ public class TeleportCommands
 		if ((s instanceof Player)) {
 			if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.teleport.warp")) {
 				if (args.length < 1) {
-					//((Player)s).sendMessage(ChatColor.RED + "Usage: " + ChatColor.BLUE + CommandList.warpsyntax);
-					//File warps = new File(MainCmd.plugin.getDataFolder(), "warps.yml");
-					//String msg = MainCmd.plugin.getFileContents(warps);
 					String msg = MainCmd.plugin.configList(config, "Warps.");
 					((Player)s).sendMessage(ChatColor.GOLD + "Warps: " + ChatColor.DARK_GREEN + msg);
 				}
@@ -287,6 +304,8 @@ public class TeleportCommands
 							double z = config.getDouble("Warps." + name + ".z");
 							String world = (String)config.get("Warps." + name + ".world");
 							Location warp = new Location(Bukkit.getServer().getWorld(world), x, y, z);
+							net.minecraft.server.Chunk chunk = ((org.bukkit.craftbukkit.CraftChunk) warp.getChunk()).getHandle();
+							MainCmd.sendChunk(chunk, ((Player)s));
 							((Player)s).teleport(warp);
 							((Player)s).sendMessage(ChatColor.GREEN + "You teleported to the warp " + name + "!");
 							log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " " + name);
@@ -329,8 +348,6 @@ public class TeleportCommands
 						config.set("Warps." + name + ".world", world);
 						((Player)s).sendMessage(ChatColor.GREEN + "Warp " + name + " successfully set to your location!");
 						log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " " + name);
-						//File warps = new File(MainCmd.plugin.getDataFolder(), "warps.yml");
-						//MainCmd.plugin.fileWrite(name, warps);
 						MainCmd.plugin.saveConfig();
 					}
 					else {

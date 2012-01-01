@@ -3,7 +3,7 @@ package plugin.maincmd;
 public class CommandList
 {
 	public static String syntax = "/<command> (required) [Optional]";
-	public static String mainsyntax = "/main [help(#)]";
+	public static String mainsyntax = "/maincmd [help(#)]";
 	public static String main = "Gives a description of MainCmd. [help] [#] will show the corresponding help page.";
 	public static String tpsyntax = "/tp (player) (player)";
 	public static String tp = "Teleport a player to another player";
@@ -45,8 +45,14 @@ public class CommandList
 	public static String survival = "Turns on survival mode for yourself or another person";
 	public static String afk = "Toggle afk mode (Not done)";
 	public static String afksyntax = "/afk";
-	public static String heal = "Heal yourself (Not done)";
+	public static String heal = "Heal yourself";
 	public static String healsyntax = "/heal";
 	public static String feed = "Feed yourself (Not done)";
 	public static String feedsyntax = "/feed";
+	public static String kick = "Kick a player (or all players (-a))";
+	public static String kicksyntax = "/kick (Player or -a) [Reason]";
+	public static String ban = "Ban a player";
+	public static String bansyntax = "/ban (Player) (Reason)";
+	public static String unban = "Unban a player";
+	public static String unbansyntax = "/unban (Player)";
 }

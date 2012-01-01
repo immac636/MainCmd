@@ -55,6 +55,10 @@ commands:
         description: feeds yourself
     kick:
         description: kick a player
+    ban:
+        description: ban a player
+    unban:
+        description: unban a player
 permissions:
     MainCmd.*:
         description: Gives access to all MainCmd commands.
@@ -62,11 +66,15 @@ permissions:
             MainCmd.teleport.*: true
             MainCmd.player.*: true
             MainCmd.test.*: true
+            MainCmd.admin.*: true
             MainCmd.main.reload: true
             MainCmd.chatcolor: true
     MainCmd.admin.*:
             MainCmd.admin.kick: true
             MainCmd.admin.kick.all: true
+            MainCmd.admin.kick.all.safe: true
+            MainCmd.admin.ban: true
+            MainCmd.admin.unban: true
     MainCmd.teleport.*:
         description: Gives access to all teleport commands.
         children:
@@ -109,6 +117,12 @@ permissions:
     MainCmd.admin.kick:
         default: op
     MainCmd.admin.kick.all:
+        default: op
+    MainCmd.admin.kick.all.safe:
+        default: false
+    MainCmd.admin.ban:
+        default: op
+    MainCmd.admin.unban:
         default: op
     MainCmd.teleport.tp:
         default: false

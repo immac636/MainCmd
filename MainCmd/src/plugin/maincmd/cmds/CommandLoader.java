@@ -37,5 +37,10 @@ public class CommandLoader {
 		MainCmd.plugin.getCommand("afk").setExecutor(Player);
 		MainCmd.plugin.getCommand("heal").setExecutor(Player);
 		MainCmd.plugin.getCommand("feed").setExecutor(Player);
+		
+		CommandExecutor Admin = new AdminCommands();
+		MainCmd.plugin.getCommand("kick").setExecutor(Admin);
+		MainCmd.plugin.getCommand("ban").setExecutor(Admin);
+		MainCmd.plugin.getCommand("unban").setExecutor(Admin);
 	}
 }

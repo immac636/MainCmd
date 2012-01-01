@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="C:/Users/Ian Mackay/Desktop/Plugins/craftbukkit-1.0.1-R2-SNAPSHOT.jar" sourcepath="/CraftBukkit/src"/>
 	<classpathentry kind="lib" path="C:/Users/Ian Mackay/Desktop/Plugins/Permissions.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Ian Mackay/Desktop/Plugins/PermissionsEx.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ian Mackay/Desktop/ServerDecompiled.jar" sourcepath="/Minecraft_Server"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

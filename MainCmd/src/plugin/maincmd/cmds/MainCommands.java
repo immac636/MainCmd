@@ -16,12 +16,14 @@ public class MainCommands
 	Logger log = Logger.getLogger("Minecraft");
 
 	private void maincmd(CommandSender s, Command c, String l, String[] args) {
+		if (s instanceof Player) {
+			log.info(((Player)s).getName() + " used the command " + l.toLowerCase());
+		}
 		if (args.length < 1) {
 			if ((s instanceof Player)) {
 				((Player)s).sendMessage(ChatColor.GOLD + Description.Desc1);
 				((Player)s).sendMessage(ChatColor.GOLD + Description.Desc2);
 				((Player)s).sendMessage(ChatColor.GOLD + Description.Desc3);
-				log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString());
 			}
 			else {
 				s.sendMessage(Description.Desc1);
@@ -61,7 +63,6 @@ public class MainCommands
 					((Player)s).sendMessage(ChatColor.RED + CommandList.tptosyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.tpto);
 					((Player)s).sendMessage(ChatColor.RED + CommandList.jumpsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.jump);
 					((Player)s).sendMessage(ChatColor.RED + CommandList.sendsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.send);
-					log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " help 1");
 				}
 				else {
 					s.sendMessage("++ Page 1 of 4 ++");
@@ -84,7 +85,6 @@ public class MainCommands
 					((Player)s).sendMessage(ChatColor.RED + CommandList.givesyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.give);
 					((Player)s).sendMessage(ChatColor.RED + CommandList.homesyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.home);
 					((Player)s).sendMessage(ChatColor.RED + CommandList.sethomesyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.sethome);
-					log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " help 2");
 				}
 				else {
 					s.sendMessage("++ Page 2 of 4 ++");
@@ -124,11 +124,17 @@ public class MainCommands
 					((Player)s).sendMessage(ChatColor.BLUE + "++ Page 4 of 4 ++");
 					((Player)s).sendMessage(ChatColor.RED + CommandList.healsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.heal);
 					((Player)s).sendMessage(ChatColor.RED + CommandList.feedsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.feed);
+					((Player)s).sendMessage(ChatColor.RED + CommandList.kicksyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.kick);
+					((Player)s).sendMessage(ChatColor.RED + CommandList.bansyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.ban);
+					((Player)s).sendMessage(ChatColor.RED + CommandList.unbansyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.unban);
 				}
 				else {
 					s.sendMessage("++ Page 4 of 4 ++ ");
 					s.sendMessage(CommandList.healsyntax + " -- " + CommandList.heal);
 					s.sendMessage(CommandList.feedsyntax + " -- " + CommandList.feed);
+					s.sendMessage(CommandList.kicksyntax + " -- " + CommandList.kick);
+					s.sendMessage(CommandList.bansyntax + " -- " + CommandList.ban);
+					s.sendMessage(CommandList.unbansyntax + " -- " + CommandList.unban);
 				}
 			}
 		}

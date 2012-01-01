@@ -287,7 +287,7 @@ public class PlayerCommands
 		t.sendMessage(ChatColor.AQUA + "You were switched to survival!");
 	}
 	private void afk(CommandSender s, Command c, String l, String[] args) {
-		/*if ((s instanceof Player)) {
+		if ((s instanceof Player)) {
 			if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.player.afk")) {
 				String pname = ((Player)s).getName();
 				if (config.contains("Players." + pname + ".afk")) {
@@ -316,8 +316,8 @@ public class PlayerCommands
 			} else {
 				((Player)s).sendMessage(ChatColor.RED + config.getString("Messages.MissingPermissions"));
 			}
-		} else s.sendMessage("You can't use /afk from console!"); */
-		((Player)s).sendMessage(ChatColor.DARK_RED + "AFK Is not yet implemented, nag immac636 to put it in :(");
+		} else s.sendMessage("You can't use /afk from console!");
+		// ((Player)s).sendMessage(ChatColor.DARK_RED + "AFK Is not yet implemented, nag immac636 to put it in :(");
 	}
 	private void heal(CommandSender s, Command c, String l, String[] args) {
 		if ((s instanceof Player)) {
