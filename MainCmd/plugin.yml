@@ -59,6 +59,10 @@ commands:
         description: ban a player
     unban:
         description: unban a player
+    say:
+        description: say something
+    dev:
+        description: unknown
 permissions:
     MainCmd.*:
         description: Gives access to all MainCmd commands.

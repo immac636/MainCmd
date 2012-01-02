@@ -289,29 +289,32 @@ public class PlayerCommands
 	private void afk(CommandSender s, Command c, String l, String[] args) {
 		if ((s instanceof Player)) {
 			if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.player.afk")) {
+				String playername = ((Player)s).getDisplayName();
 				String pname = ((Player)s).getName();
 				if (config.contains("Players." + pname + ".afk")) {
 					if (config.getBoolean("Players." + pname + ".afk")) {
 						config.set("Players." + pname + ".afk", Boolean.valueOf(false));
-						((Player)s).setDisplayName(pname);
+						((Player)s).setDisplayName(config.getString("Players." + pname + ".displayname"));
 						((Player)s).sendMessage(ChatColor.GREEN + "You are no longer afk!");
 						Bukkit.broadcastMessage(ChatColor.DARK_AQUA + pname + " is no longer afk.");
-						log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " off");
+						log.info("[MainCmd] " + pname + " succesfully used the command /" + l.toString() + " off");
 					}
 					else {
+						config.set("Players." + pname + ".displayname", playername);
 						config.set("Players." + pname + ".afk", Boolean.valueOf(true));
-						((Player)s).setDisplayName(ChatColor.GRAY + "[AFK] " + pname);
+						((Player)s).setDisplayName(ChatColor.GRAY + playername + "[AFK]");
 						((Player)s).sendMessage(ChatColor.GREEN + "You are now afk!");
 						Bukkit.broadcastMessage(ChatColor.DARK_AQUA + pname + " is now afk.");
-						log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " on");
+						log.info("[MainCmd] " + pname + " succesfully used the command /" + l.toString() + " on");
 					}
 				}
 				else {
+					config.set("Players." + pname + ".displayname", playername);
 					config.set("Players." + pname + ".afk", Boolean.valueOf(true));
-					((Player)s).setDisplayName(ChatColor.GRAY + "[AFK] " + pname);
+					((Player)s).setDisplayName(ChatColor.GRAY + playername + "[AFK]");
 					((Player)s).sendMessage(ChatColor.GREEN + "You are now afk!");
 					Bukkit.broadcastMessage(ChatColor.DARK_AQUA + pname + " is now afk.");
-					log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " on");
+					log.info("[MainCmd] " + pname + " succesfully used the command /" + l.toString() + " on");
 				}
 			} else {
 				((Player)s).sendMessage(ChatColor.RED + config.getString("Messages.MissingPermissions"));

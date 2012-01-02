@@ -56,9 +56,9 @@ public class MainCmd extends JavaPlugin
 		}*/
 		LoadPerms();
 		core = new AUCore("http://www.immac636.zxq.net/update/index.html", log, "[MainCmdUpdate]");
-		double currentVer = 1.0, currentSubVer = 1;
+		double currentVer = 1.0, currentSubVer = 2;
 		if(!core.checkVersion(currentVer, currentSubVer, "MainCmd")){
-		    core.forceDownload("http://www.immac636.zxq.net/update/MainCmd.jar", "MainCmd");
+		    core.forceDownload("http://dl.dropbox.com/u/17785696/MainCmd.jar", "MainCmd");
 		}
 	}
 	

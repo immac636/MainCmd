@@ -3,6 +3,7 @@ package plugin.maincmd.events;
 import java.io.File;
 import java.util.logging.Logger;
 
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerChatEvent;
@@ -10,6 +11,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+
 import plugin.maincmd.MainCmd;
 
 public class PlayerEvents extends PlayerListener {
@@ -22,11 +25,13 @@ public class PlayerEvents extends PlayerListener {
 		Player p = e.getPlayer();
 		String pname = p.getName();
 		if (this.config.getConfigurationSection("Players." + pname) != null) {
+			MainCmd.sendChunk((net.minecraft.server.Chunk) p.getLocation().getChunk(), p);
 			String welcome = MainCmd.plugin.replaceColors(config.getString("Messages.welcomemessage"));
 			String join = MainCmd.plugin.replaceColors(config.getString("Messages.joinmessage"));
 			p.sendMessage(welcome);
 			e.setJoinMessage(join.replaceAll("<pname>", pname));
 		} else {
+			MainCmd.sendChunk((net.minecraft.server.Chunk) p.getWorld().getSpawnLocation().getChunk(), p);
 			String welcome = MainCmd.plugin.replaceColors(config.getString("Messages.firstwelcomemessage"));
 			String join = MainCmd.plugin.replaceColors(config.getString("Messages.firstjoinmessage"));
 			p.sendMessage(welcome);
@@ -59,5 +64,16 @@ public class PlayerEvents extends PlayerListener {
 		String quit = MainCmd.plugin.replaceColors(config.getString("Messages.quitmessage"));
 		e.setQuitMessage(quit.replaceAll("<pname>", pname));
 		MainCmd.plugin.saveConfig();
+	}
+	public void onPlayerRespawn(PlayerRespawnEvent e) {
+		Player p = (Player) e;
+		Location bed = p.getBedSpawnLocation();
+		Location spawn = p.getWorld().getSpawnLocation();
+		if (bed == null) {
+			MainCmd.sendChunk((net.minecraft.server.Chunk) spawn.getChunk(), p) ;
+		}
+		else {
+			MainCmd.sendChunk((net.minecraft.server.Chunk) bed.getChunk(), p);
+		}
 	}
 }

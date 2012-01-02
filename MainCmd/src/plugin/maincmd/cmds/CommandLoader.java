@@ -26,6 +26,8 @@ public class CommandLoader {
 		CommandExecutor Test = new TestCommands();
 		MainCmd.plugin.getCommand("boom").setExecutor(Test);
 		MainCmd.plugin.getCommand("ping").setExecutor(Test);
+		MainCmd.plugin.getCommand("say").setExecutor(Test);
+		MainCmd.plugin.getCommand("dev").setExecutor(Test);
 
 		CommandExecutor Player = new PlayerCommands();
 		MainCmd.plugin.getCommand("give").setExecutor(Player);

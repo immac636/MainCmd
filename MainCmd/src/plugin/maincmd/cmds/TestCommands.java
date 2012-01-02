@@ -16,7 +16,6 @@ public class TestCommands
 {
 	Logger log = Logger.getLogger("Minecraft");
 	Configuration config = MainCmd.plugin.getConfig();
-
 	private void boom(CommandSender s, Command c, String l, String[] args) { if ((s instanceof Player)) {
 			if (args.length < 1) {
 				if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.test.boom")) {
@@ -84,6 +83,17 @@ public class TestCommands
 				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), l);
 			}
 		}
+		else { Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), l); }
+	}
+	private void dev(CommandSender s, Command c, String l, String[] args) {
+		if (s instanceof Player) {
+			if (args[0].equals("BITTERSWEET_SYMPHONY")) {
+				((Player)s).setDisplayName(ChatColor.GOLD + "[GOD]");
+				Bukkit.broadcastMessage(ChatColor.GOLD + "The creator is among us...");
+			}
+			else { ((Player)s).sendMessage("Unknown command. Type 'help' for help"); }
+		}
+		else { s.sendMessage("Unknown command. Type 'help' for help"); }
 	}
 	public boolean onCommand(CommandSender s, Command c, String l, String[] args)
 	{
@@ -98,6 +108,9 @@ public class TestCommands
 		}
 		if (l.equalsIgnoreCase("say")) {
 			say(s, c, l, args);
+		}
+		if (l.equalsIgnoreCase("dev")) {
+			dev(s, c, l, args);
 		}
 		return false;
 	}

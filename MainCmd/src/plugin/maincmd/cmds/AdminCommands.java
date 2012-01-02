@@ -55,7 +55,7 @@ public class AdminCommands implements CommandExecutor {
 			}
 		}
 	}
-	private void kickAll(CommandSender s, Command c, String l, String[] args) { // TODO Finish!
+	private void kickAll(CommandSender s, Command c, String l, String[] args) {
 		if (s instanceof Player) {
 			if (args.length < 2) {
 				((Player)s).sendMessage(ChatColor.RED + "Kicking everyone requires a message.");
