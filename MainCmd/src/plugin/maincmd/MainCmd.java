@@ -3,6 +3,8 @@ package plugin.maincmd;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
+import couk.Adamki11s.AutoUpdater.AUCore;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -39,7 +41,7 @@ public class MainCmd extends JavaPlugin
 	public boolean UsePermissions;
 	public PermissionHandler Permissions;
 	public static String newln = System.getProperty("line.separator");
-
+	private AUCore core;
 	public void onEnable() {
 		plugin = this;
 		log.info("MainCmd Version " + plugin.getDescription().getVersion() + " started up!");
@@ -53,6 +55,11 @@ public class MainCmd extends JavaPlugin
 			e.printStackTrace();
 		}*/
 		LoadPerms();
+		core = new AUCore("http://www.immac636.zxq.net/update/index.html", log, "[MainCmdUpdate]");
+		double currentVer = 1.0, currentSubVer = 1;
+		if(!core.checkVersion(currentVer, currentSubVer, "MainCmd")){
+		    core.forceDownload("http://www.immac636.zxq.net/update/MainCmd.jar", "MainCmd");
+		}
 	}
 	
 	public void onDisable() {
@@ -120,7 +127,7 @@ public class MainCmd extends JavaPlugin
 	
 	public String configList(Configuration file, String node) {
 		try	{
-			String keys = file.getConfigurationSection(node).getKeys(false).toString().replaceAll("[", "\"").replaceAll("]", "\"");
+			String keys = file.getConfigurationSection(node).getKeys(false).toString()/*.replaceAll("[", "\"").replaceAll("]", "\"")*/;
 			return keys;
 		} catch(Exception e) {
 			e.printStackTrace();
