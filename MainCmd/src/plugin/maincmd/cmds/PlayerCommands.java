@@ -323,28 +323,57 @@ public class PlayerCommands
 		// ((Player)s).sendMessage(ChatColor.DARK_RED + "AFK Is not yet implemented, nag immac636 to put it in :(");
 	}
 	private void heal(CommandSender s, Command c, String l, String[] args) {
-		if ((s instanceof Player)) {
-			if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.player.heal")) {
-				((Player)s).setHealth(20);
-				((Player)s).sendMessage(ChatColor.GREEN + "You have been healed!");
-				log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString());
-			} else {
-				((Player)s).sendMessage(ChatColor.RED + config.getString("Messages.MissingPermissions"));
-			}
-		} else s.sendMessage("You can't use /heal from console!"); 
+		if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.player.heal")) {
+			((Player)s).setHealth(20);
+			((Player)s).sendMessage(ChatColor.GREEN + "You have been healed!");
+			log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString());
+		} else {
+			((Player)s).sendMessage(ChatColor.RED + config.getString("Messages.MissingPermissions"));
+		}
+	}
+	private void healOthers(CommandSender s, Command c, String l, String[] args) {
+		if (MainCmd.plugin.permsCheck(((Player)s), "MainCmd.player.heal.others")) {
+			Player t = Bukkit.getServer().getPlayer(args[0]);
+			t.setHealth(20);
+			((Player)s).sendMessage(ChatColor.GREEN + t.getName() + " has been healed.");
+			t.sendMessage(ChatColor.AQUA + ((Player)s).getName() + " healed you!");
+			log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " " + t.getName());
+		}
+		else { ((Player)s).sendMessage(ChatColor.RED + config.getString("Messages.MissingPermissions")); }
+	}
+	private void healConsole(CommandSender s, Command c, String l, String[] args) {
+		Player t = Bukkit.getServer().getPlayer(args[0]);
+		t.setHealth(20);
+		s.sendMessage(t.getName() + " has been healed.");
+		t.sendMessage(ChatColor.AQUA + "You were healed!");
 	}
 	private void feed(CommandSender s, Command c, String l, String[] args) {
-		if ((s instanceof Player)) {
-			if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.player.feed")) {
-				((Player)s).setFoodLevel(20);
-				((Player)s).sendMessage(ChatColor.GREEN + "You have been fed!");
-				log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString());
-			} else {
-				((Player)s).sendMessage(ChatColor.RED + config.getString("Messages.MissingPermissions"));
-			}
-		} else s.sendMessage("You can't use /feed from console!"); 
+		if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.player.feed")) {
+			((Player)s).setFoodLevel(20);
+			((Player)s).sendMessage(ChatColor.GREEN + "You have been fed!");
+			log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString());
+		} else {
+			((Player)s).sendMessage(ChatColor.RED + config.getString("Messages.MissingPermissions"));
+		}
 	}
-
+	private void feedOthers(CommandSender s, Command c, String l, String[] args) {
+		if (MainCmd.plugin.permsCheck((Player)s, "MainCmd.player.feed.others")) {
+			Player t = Bukkit.getServer().getPlayer(args[0]);
+			t.setFoodLevel(20);
+			((Player)s).sendMessage(ChatColor.GREEN + t.getName() + " has been fed!");
+			t.sendMessage(ChatColor.AQUA + ((Player)s).getName() + " fed you!");
+			log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " " + t.getName());
+		} else {
+			((Player)s).sendMessage(ChatColor.RED + config.getString("Messages.MissingPermissions"));
+		}
+	}
+	private void feedConsole(CommandSender s, Command c, String l, String[] args) {
+		Player t = Bukkit.getServer().getPlayer(args[0]);
+		t.setFoodLevel(20);
+		s.sendMessage(t.getName() + " has been fed!");
+		t.sendMessage(ChatColor.AQUA + "You were fed!");
+		log.info("[MainCmd] " + ((Player)s).getName() + " succesfully used the command /" + l.toString() + " " + t.getName());
+	}
 	public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
 		if ((s instanceof Player)) {
 			log.info("[MainCmd] User " + ((Player)s).getName() + " used (or attempted to use) the command " + l.toString());
@@ -403,10 +432,30 @@ public class PlayerCommands
 			afk(s, c, l, args);
 		}
 		if (l.equalsIgnoreCase("heal")) {
-			heal(s, c, l, args);
+			if (s instanceof Player) {
+				if (args.length < 1) {
+					heal(s, c, l, args);
+				}
+				else {
+					healOthers(s, c, l, args);
+				}
+			}
+			else {
+				healConsole(s, c, l, args);
+			}
 		}
 		if (l.equalsIgnoreCase("feed")) {
-			feed(s, c, l, args);
+			if (s instanceof Player) {
+				if (args.length < 1) {
+					feed(s, c, l, args);
+				}
+				else {
+					feedOthers(s, c, l, args);
+				}
+			}
+			else {
+				feedConsole(s, c, l, args);
+			}
 		}
 		return false;
 	}

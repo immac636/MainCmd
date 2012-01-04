@@ -5,6 +5,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import plugin.maincmd.MainCmd;
@@ -46,8 +47,8 @@ public class GeneralCommands implements CommandExecutor {
 		
 	}
 
-	public boolean onCommand(CommandSender s, Command c, String l, String[] args)
-	{
+	public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
+		
 		return false;
 	}
 }

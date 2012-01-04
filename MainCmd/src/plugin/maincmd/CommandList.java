@@ -43,16 +43,18 @@ public class CommandList
 	public static String creative = "Turns on creative mode for yourself or another person";
 	public static String survivalsyntax = "/survival [Player]";
 	public static String survival = "Turns on survival mode for yourself or another person";
-	public static String afk = "Toggle afk mode (Not done)";
+	public static String afk = "Toggle afk mode";
 	public static String afksyntax = "/afk";
-	public static String heal = "Heal yourself";
-	public static String healsyntax = "/heal";
-	public static String feed = "Feed yourself (Not done)";
-	public static String feedsyntax = "/feed";
+	public static String heal = "Heal yourself or someone else";
+	public static String healsyntax = "/heal [Player]";
+	public static String feed = "Feed yourself or someone else";
+	public static String feedsyntax = "/feed [Player]";
 	public static String kick = "Kick a player (or all players (-a))";
 	public static String kicksyntax = "/kick (Player or -a) [Reason]";
 	public static String ban = "Ban a player";
 	public static String bansyntax = "/ban (Player) (Reason)";
 	public static String unban = "Unban a player";
 	public static String unbansyntax = "/unban (Player)";
+	public static String admin = "Toggle admin mode";
+	public static String adminsyntax = "/admin";
 }

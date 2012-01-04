@@ -78,22 +78,37 @@ public class TestCommands
 	}
 
 	private void say(CommandSender s, Command c, String l, String[] args) {
+		if (args.length < 1) {
+			if (s instanceof Player) {
+				((Player)s).sendMessage(ChatColor.RED + "You must specify a name and message!");
+			} 
+			else { s.sendMessage("You must specify a name and message!"); }
+		}
+		if (args.length < 2) {
+			if (s instanceof Player) {
+				((Player)s).sendMessage(ChatColor.RED + "You must specify a message!");
+			}
+			else { s.sendMessage("You must specify a message!"); }
+		}
 		if (s instanceof Player) {
 			if (MainCmd.plugin.permsCheck(((Player)s), "MainCmd.test.say")) {
-				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), l);
+				String name = ChatColor.GOLD + "[" + args[0] + "]" + ChatColor.WHITE;
+				StringBuilder msg = new StringBuilder();
+				for (int i = 1; i < args.length; i++) {
+					msg.append(args[i] + " ");
+				}
+				Bukkit.broadcastMessage(name + " " +  MainCmd.plugin.replaceColors(msg.toString()));
 			}
+			else { ((Player)s).sendMessage(ChatColor.RED + config.getString("Messages.MissingPermissions")); }
 		}
-		else { Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), l); }
-	}
-	private void dev(CommandSender s, Command c, String l, String[] args) {
-		if (s instanceof Player) {
-			if (args[0].equals("BITTERSWEET_SYMPHONY")) {
-				((Player)s).setDisplayName(ChatColor.GOLD + "[GOD]");
-				Bukkit.broadcastMessage(ChatColor.GOLD + "The creator is among us...");
+		else {
+			String name = ChatColor.GOLD + "[" + args[0] + "]" + ChatColor.WHITE;
+			StringBuilder msg = new StringBuilder();
+			for (int i = 1; i < args.length; i++) {
+				msg.append(args[i] + " ");
 			}
-			else { ((Player)s).sendMessage("Unknown command. Type 'help' for help"); }
+			Bukkit.broadcastMessage(name + " " +  MainCmd.plugin.replaceColors(msg.toString()));
 		}
-		else { s.sendMessage("Unknown command. Type 'help' for help"); }
 	}
 	public boolean onCommand(CommandSender s, Command c, String l, String[] args)
 	{
@@ -108,9 +123,6 @@ public class TestCommands
 		}
 		if (l.equalsIgnoreCase("say")) {
 			say(s, c, l, args);
-		}
-		if (l.equalsIgnoreCase("dev")) {
-			dev(s, c, l, args);
 		}
 		return false;
 	}

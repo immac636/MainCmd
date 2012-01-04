@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -154,23 +155,125 @@ public class AdminCommands implements CommandExecutor {
 			else { s.sendMessage("That player isn't banned!"); }
 		}
 	}
-	private void mute(CommandSender s, Command c, String l, String[] args) { // TODO
+	private void mute(CommandSender s, Command c, String l, String[] args) {
+		if (s instanceof Player) {
+			if (MainCmd.plugin.permsCheck(((Player)s), "MainCmd.admin.mute")) {
+				Player t = Bukkit.getServer().getPlayer(args[0]);
+				if (config.getBoolean("Players." + t.getName() + ".muted")) {
+					((Player)s).sendMessage(ChatColor.RED + "That player is already muted");
+				}
+				else {
+					config.set("Players." + t.getName() + ".muted", true);
+					t.sendMessage(ChatColor.AQUA + "You have been muted.");
+					((Player)s).sendMessage(ChatColor.GREEN + t.getName() + " has been muted.");
+					
+				}
+			}
+			else { ((Player)s).sendMessage(ChatColor.RED + config.getString("Messages.MissingPermissions")); } 
+		}
+		else {
+			Player t = Bukkit.getServer().getPlayer(args[0]);
+			if (config.getBoolean("Players." + t.getName() + ".muted")) {
+				s.sendMessage("That player is already muted");
+			}
+			else {
+				config.set("Players." + t.getName() + ".muted", true);
+				t.sendMessage(ChatColor.AQUA + "You have been muted.");
+				s.sendMessage(t.getName() + " has been muted.");
+			}
+		}
+	}
+	private void unmute(CommandSender s, Command c, String l, String[] args) {
+		if (s instanceof Player) {
+			if (MainCmd.plugin.permsCheck(((Player)s), "MainCmd.admin.unmute")) {
+				Player t = Bukkit.getServer().getPlayer(args[0]);
+				if (!(config.getBoolean("Players." + t.getName() + ".muted"))) {
+					((Player)s).sendMessage(ChatColor.RED + "That player isn't muted");
+				}
+				else {
+					config.set("Players." + t.getName() + ".muted", false);
+					t.sendMessage(ChatColor.AQUA + "You have been unmuted.");
+					((Player)s).sendMessage(ChatColor.GREEN + t.getName() + " has been unmuted.");
+					
+				}
+			}
+			else { ((Player)s).sendMessage(ChatColor.RED + config.getString("Messages.MissingPermissions")); } 
+		}
+		else {
+			Player t = Bukkit.getServer().getPlayer(args[0]);
+			if (config.getBoolean("Players." + t.getName() + ".muted")) {
+				s.sendMessage("That player isn't muted");
+			}
+			else {
+				config.set("Players." + t.getName() + ".muted", false);
+				t.sendMessage(ChatColor.AQUA + "You have been unmuted.");
+				s.sendMessage(t.getName() + " has been unmuted.");
+			}
+		}
+	}
+	private void freeze(CommandSender s, Command c, String l, String[] args) { // TODO in future
 		
 	}
-	private void unmute(CommandSender s, Command c, String l, String[] args) { // TODO
-	
-	}
-	private void freeze(CommandSender s, Command c, String l, String[] args) { // TODO
+	private void unfreeze(CommandSender s, Command c, String l, String[] args) { // TODO in future
 		
 	}
-	private void unfreeze(CommandSender s, Command c, String l, String[] args) { // TODO
-		
-	}
-	private void adminMode(CommandSender s, Command c, String l, String[] args) { // TODO if (!Player.isOp)
-																				  //      	   Player.kickPlayer("adminmode");
+	private void adminMode(CommandSender s, Command c, String l, String[] args) { 
+		if (s instanceof Player) {
+			if (MainCmd.plugin.permsCheck(((Player)s), "MainCmd.admin.admin")) {
+				if (config.getBoolean("Admin_Mode")) {
+					Bukkit.setWhitelist(false);
+					config.set("Admin_Mode", false);
+				}
+				else {
+					for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+						if (MainCmd.plugin.areYouSure) {
+							if (!(p.isOp() || MainCmd.plugin.permsCheck(p, "MainCmd.admin.kick.all.safe"))) {
+								p.kickPlayer("Admin mode");
+							}
+							else {
+								Bukkit.getWhitelistedPlayers().add(p);
+							}
+							for (OfflinePlayer pl : Bukkit.getServer().getOfflinePlayers()) {
+								if (pl.isOp() || MainCmd.plugin.permsCheck((Player) pl, "MainCmd.admin.kick.all.safe")) {
+									Bukkit.getWhitelistedPlayers().add(pl);
+								}
+							}
+							Bukkit.setWhitelist(true);
+							config.set("Admin_Mode", true);
+							Bukkit.broadcastMessage(ChatColor.GOLD + "Admin mode in effect.");
+						} 
+					}
+				}
+			}
+			else { ((Player)s).sendMessage(ChatColor.RED + config.getString("Messages.MissingPermissions")); } 
+		}
+		else {
+			if (config.getBoolean("Admin_Mode")) {
+				Bukkit.setWhitelist(false);
+				config.set("Admin_Mode", false);
+			}
+			else {
+				for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+					if (!(p.isOp() || MainCmd.plugin.permsCheck(p, "MainCmd.admin.kick.all.safe"))) {
+						p.kickPlayer("Admin mode");
+					}
+					else {
+						Bukkit.getWhitelistedPlayers().add(p);
+					}
+					for (OfflinePlayer pl : Bukkit.getServer().getOfflinePlayers()) {
+						if (pl.isOp() || MainCmd.plugin.permsCheck((Player) pl, "MainCmd.admin.kick.all.safe")) {
+							Bukkit.getWhitelistedPlayers().add(pl);
+						}
+					}
+					Bukkit.setWhitelist(true);
+					config.set("Admin_Mode", true);
+					Bukkit.broadcastMessage(ChatColor.GOLD + "Admin mode in effect.");
+				}
+			}
+		}
 	}
 	public boolean onCommand(CommandSender s, Command c, String l, String[] args) {
-		if (l.equalsIgnoreCase("kick")) {
+		if (l.equalsIgnoreCase("kick")) { 
 			if (args[0].equalsIgnoreCase("-a")) {
 				kickAll(s, c, l, args);
 			}
@@ -183,6 +286,15 @@ public class AdminCommands implements CommandExecutor {
 		}
 		if (l.equalsIgnoreCase("unban")) {
 			unban(s, c, l, args);
+		}
+		if (l.equalsIgnoreCase("admin")) {
+			adminMode(s, c, l, args);
+		}
+		if (l.equalsIgnoreCase("mute")) {
+			mute(s, c, l, args);
+		}
+		if (l.equalsIgnoreCase("unmute")) {
+			unmute(s, c, l, args);
 		}
 		return false;
 	}

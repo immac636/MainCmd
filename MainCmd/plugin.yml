@@ -1,6 +1,6 @@
 name: MainCmd
 main: plugin.maincmd.MainCmd
-version: 1.1 (Release!)
+version: 1.0_2
 author: immac636
 commands:
     maincmd:
@@ -61,8 +61,12 @@ commands:
         description: unban a player
     say:
         description: say something
-    dev:
-        description: unknown
+    admin:
+        description: turn on admin mode
+    mute:
+        description: mute a player
+    unmute:
+        description: unmute a player
 permissions:
     MainCmd.*:
         description: Gives access to all MainCmd commands.
@@ -77,6 +81,7 @@ permissions:
             MainCmd.admin.kick: true
             MainCmd.admin.kick.all: true
             MainCmd.admin.kick.all.safe: true
+            MainCmd.admin.admin: true
             MainCmd.admin.ban: true
             MainCmd.admin.unban: true
     MainCmd.teleport.*:
@@ -118,12 +123,14 @@ permissions:
         children:
             MainCmd.test.boom: true
             MainCmd.test.boom.others: true
+    MainCmd.admin.admin:
+        default: op
     MainCmd.admin.kick:
         default: op
     MainCmd.admin.kick.all:
         default: op
     MainCmd.admin.kick.all.safe:
-        default: false
+        default: op
     MainCmd.admin.ban:
         default: op
     MainCmd.admin.unban:

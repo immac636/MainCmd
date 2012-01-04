@@ -53,6 +53,12 @@ public class MainCommands
 			}
 			// ((Player)s).sendMessage(ChatColor.RED + args1 + ChatColor.WHITE + " -- " + ChatColor.GOLD + args2);
 			// s.sendMessage(args1 + " -- " + args2);
+			else if (args[1].equalsIgnoreCase("0")) {
+				if (s instanceof Player) {
+					((Player)s).sendMessage(ChatColor.DARK_PURPLE + "Heheh...");
+				}
+				else { s.sendMessage("Heheh..."); }
+			}
 			else if (args[1].equalsIgnoreCase("1")) {
 				if ((s instanceof Player)) {
 					((Player)s).sendMessage(ChatColor.BLUE + "++ Page 1 of 4 ++");
@@ -127,6 +133,7 @@ public class MainCommands
 					((Player)s).sendMessage(ChatColor.RED + CommandList.kicksyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.kick);
 					((Player)s).sendMessage(ChatColor.RED + CommandList.bansyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.ban);
 					((Player)s).sendMessage(ChatColor.RED + CommandList.unbansyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.unban);
+					((Player)s).sendMessage(ChatColor.RED + CommandList.adminsyntax + ChatColor.WHITE + " -- " + ChatColor.GOLD + CommandList.admin);
 				}
 				else {
 					s.sendMessage("++ Page 4 of 4 ++ ");
@@ -135,6 +142,7 @@ public class MainCommands
 					s.sendMessage(CommandList.kicksyntax + " -- " + CommandList.kick);
 					s.sendMessage(CommandList.bansyntax + " -- " + CommandList.ban);
 					s.sendMessage(CommandList.unbansyntax + " -- " + CommandList.unban);
+					s.sendMessage(CommandList.adminsyntax + " -- " + CommandList.admin);
 				}
 			}
 		}

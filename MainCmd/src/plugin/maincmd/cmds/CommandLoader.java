@@ -27,7 +27,6 @@ public class CommandLoader {
 		MainCmd.plugin.getCommand("boom").setExecutor(Test);
 		MainCmd.plugin.getCommand("ping").setExecutor(Test);
 		MainCmd.plugin.getCommand("say").setExecutor(Test);
-		MainCmd.plugin.getCommand("dev").setExecutor(Test);
 
 		CommandExecutor Player = new PlayerCommands();
 		MainCmd.plugin.getCommand("give").setExecutor(Player);
@@ -44,5 +43,9 @@ public class CommandLoader {
 		MainCmd.plugin.getCommand("kick").setExecutor(Admin);
 		MainCmd.plugin.getCommand("ban").setExecutor(Admin);
 		MainCmd.plugin.getCommand("unban").setExecutor(Admin);
+		MainCmd.plugin.getCommand("admin").setExecutor(Admin);
+		MainCmd.plugin.getCommand("mute").setExecutor(Admin);
+		MainCmd.plugin.getCommand("unmute").setExecutor(Admin);
+		
 	}
 }

@@ -3,6 +3,7 @@ package plugin.maincmd.events;
 import java.io.File;
 import java.util.logging.Logger;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -10,6 +11,7 @@ import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
@@ -25,13 +27,13 @@ public class PlayerEvents extends PlayerListener {
 		Player p = e.getPlayer();
 		String pname = p.getName();
 		if (this.config.getConfigurationSection("Players." + pname) != null) {
-			MainCmd.sendChunk((net.minecraft.server.Chunk) p.getLocation().getChunk(), p);
+			MainCmd.sendChunk(p.getLocation().getChunk(), p);
 			String welcome = MainCmd.plugin.replaceColors(config.getString("Messages.welcomemessage"));
 			String join = MainCmd.plugin.replaceColors(config.getString("Messages.joinmessage"));
 			p.sendMessage(welcome);
 			e.setJoinMessage(join.replaceAll("<pname>", pname));
 		} else {
-			MainCmd.sendChunk((net.minecraft.server.Chunk) p.getWorld().getSpawnLocation().getChunk(), p);
+			MainCmd.sendChunk(p.getWorld().getSpawnLocation().getChunk(), p);
 			String welcome = MainCmd.plugin.replaceColors(config.getString("Messages.firstwelcomemessage"));
 			String join = MainCmd.plugin.replaceColors(config.getString("Messages.firstjoinmessage"));
 			p.sendMessage(welcome);
@@ -47,6 +49,10 @@ public class PlayerEvents extends PlayerListener {
 	}
 	public void onPlayerChat(PlayerChatEvent e) {
 		Player p = e.getPlayer();
+		if (config.getBoolean("Players" + p.getName() + ".muted")) {
+			e.setCancelled(true);
+			p.sendMessage(ChatColor.RED + "You are muted!");
+		}
 		if (MainCmd.plugin.permsCheck(p, "MainCmd.chatcolor")) {
 			String msg = MainCmd.plugin.replaceColors(e.getMessage());
 			e.setMessage(msg);
@@ -70,10 +76,10 @@ public class PlayerEvents extends PlayerListener {
 		Location bed = p.getBedSpawnLocation();
 		Location spawn = p.getWorld().getSpawnLocation();
 		if (bed == null) {
-			MainCmd.sendChunk((net.minecraft.server.Chunk) spawn.getChunk(), p) ;
+			MainCmd.sendChunk(spawn.getChunk(), p) ;
 		}
 		else {
-			MainCmd.sendChunk((net.minecraft.server.Chunk) bed.getChunk(), p);
+			MainCmd.sendChunk(bed.getChunk(), p);
 		}
 	}
 }

@@ -10,6 +10,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 import net.minecraft.server.EntityPlayer;
@@ -17,6 +18,9 @@ import net.minecraft.server.Packet;
 import net.minecraft.server.Packet51MapChunk;
 import net.minecraft.server.TileEntity;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -41,6 +45,7 @@ public class MainCmd extends JavaPlugin
 	public boolean UsePermissions;
 	public PermissionHandler Permissions;
 	public static String newln = System.getProperty("line.separator");
+	public boolean areYouSure;
 	private AUCore core;
 	public void onEnable() {
 		plugin = this;
@@ -80,7 +85,22 @@ public class MainCmd extends JavaPlugin
 			}
 		}
 	}
-	
+	public boolean areYouSure(CommandSender sender) {
+		Player p = (Player) sender;
+		Scanner s = new Scanner(System.in);
+		p.sendMessage(ChatColor.RED + "Are you sure? yes/no");
+		if (s.next().equalsIgnoreCase("Yes")) {
+			areYouSure = true;
+		}
+		if (s.next().equalsIgnoreCase("No")) {
+			areYouSure = false;
+		}
+		else {
+			p.sendMessage(ChatColor.RED + "I'll take that as a no.");
+			areYouSure = false;
+		}
+		return areYouSure;
+	}
 	public String getFileContents(File file) {
 		
 		StringBuilder s = new StringBuilder();
@@ -146,26 +166,20 @@ public class MainCmd extends JavaPlugin
 			return false;
 		}
 		else {*/
-			if (UsePermissions) {
-				if (p.hasPermission("MainCmd.*")) {
-					return true;
-				}
-				else {
-					return Permissions.has(p, string);
-				}
-			}
-			else if (p.isOp()) {
+		if (UsePermissions) {
+			if (p.hasPermission("MainCmd.*")) {
 				return true;
 			}
-			else {
-				return false;
-			}
+			return Permissions.has(p, string);
+		}
+		return p.isOp();
 		//}
 	}
 	public String replaceColors(String String) {
 		return String.replaceAll("(?i)&([a-f0-9])", "§$1");
 	}
-	public static void sendChunk(net.minecraft.server.Chunk c, Player pl) {
+	public static void sendChunk(Chunk chunk, Player pl) {
+		net.minecraft.server.Chunk c = ((org.bukkit.craftbukkit.CraftChunk) chunk).getHandle();
 		EntityPlayer player = ((CraftPlayer) pl).getHandle();
         byte[] data = new byte[81920];
         System.arraycopy(c.b, 0, data, 0, 32768);
